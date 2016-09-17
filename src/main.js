@@ -8,16 +8,11 @@ Vue.use(VueRouter);
 const router = new VueRouter();
 
 router.map({
-  '/loading': {
-    component: WelcomePage,
-  },
-  '/index': {
-    component: WelcomePage,
-  },
+
 });
 
 router.redirect({
-  '*': 'loading',
+  '*': '',
 });
 
 router.start(App, '#app');

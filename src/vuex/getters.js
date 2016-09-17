@@ -1,3 +1,3 @@
-export const getStartImage = (state) => {
-  return state.startImage;
+export const getLoadState = (state) => {
+  return state.loadState;
 };

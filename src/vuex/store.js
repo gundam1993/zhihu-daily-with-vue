@@ -1,15 +1,19 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import VueResource from 'vue-resource';
 
 Vue.use(Vuex);
+Vue.use(VueResource);
 
 const state = {
-  startImage: {},
+  content: {},
+  loadState: false,
 };
 
 const mutations = {
   INIT_STORE(state, data) {
-    state.startImage = data.startImage;
+    state.content = data.body;
+    state.loadState = true;
   }
 };
 
