@@ -1,25 +1,40 @@
 <template>
   <div>
-    <welcome-page transition="welcomePageTrans"></welcome-page>
-
+    <router-view v-if="readyState"></router-view>
   </div>
 </template>
 
 <script>
   import store from './vuex/store';
-  import WelcomePage from './components/WelcomePage';
-  import { getLoadState } from './vuex/getters'
+  import Slide from './components/Slide'
+  import { initStore } from './vuex/actions'; 
 
   export default {
     store,
     vuex: {
-      getters: {
-        loadState:getLoadState,
+      actions: {
+        initStore,
       }
     },
     components: {
-      WelcomePage,
+      Slide,
     },
+    data() {
+      return {
+        readyState: false,
+      }
+    },
+    methods: {
+      getStory() {
+        this.$http.get("/api/4/news/latest").then(function (response) {
+          this.initStore(response);
+          this.readyState = true;
+        })
+      }
+    },
+    ready() {
+      this.getStory();
+    }
   }
 </script>
 
@@ -33,17 +48,6 @@ html {
   height: 100%;
   font-size:20px;
   box-sizing: border-box;
-  overflow: hidden;
+  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
-
-.welcomePageTrans-transition {
-    transition: all 1.5s ease-in-out;
-  }
-  
-  .welcomePageTrans-enter {
-    opacity: 0;
-  }
-  .welcomePageTrans-leave {
-    opacity: 0;
-  }
 </style>

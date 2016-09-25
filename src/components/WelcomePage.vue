@@ -1,11 +1,11 @@
 <template>
   <div id="welcome-page">
-    <img :src="date.img" alt="">
+    <img :src="img">
     <div class="welcome-page-title">
       <div>知乎日報</div>
     </div>
     <div class="welcome-page-copyright">
-      <span>{{ date.text }}</span>
+      <span>{{ auther }}</span>
     </div>
   </div>
 </template>
@@ -21,13 +21,16 @@
     },
     data() {
       return {
-        date: {},
+        auther: '',
+        img: '',
       }
     },
     methods: {
       getWelcomePage() {
         this.$http.get("/api/4/start-image/1242*2208").then(function (response) {
-          this.date = response.body;
+          this.img = response.body.img.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+          this.auther = response.body.text;
+          console.log(this.date);
         },function (response) {
           console.log(response);
         });

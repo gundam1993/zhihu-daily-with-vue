@@ -1,3 +1,3 @@
-export const getLoadState = (state) => {
-  return state.loadState;
+export const getTopStories = (state) => {
+  return state.topStories;
 };

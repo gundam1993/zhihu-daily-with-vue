@@ -6,14 +6,16 @@ Vue.use(Vuex);
 Vue.use(VueResource);
 
 const state = {
-  content: {},
-  loadState: false,
+  date: "",
+  stories: [],
+  topStories: [],
 };
 
 const mutations = {
   INIT_STORE(state, data) {
-    state.content = data.body;
-    state.loadState = true;
+    state.date = data.body.date;
+    state.stories = data.body.stories;
+    state.topStories = data.body.top_stories;
   }
 };
 
