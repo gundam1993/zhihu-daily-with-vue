@@ -6,8 +6,12 @@
          @touchstart="touching"
          @touchEnd="touchEnd">
       <h4>{{ story.title }}</h4>
-      <div class="daily-story-pic">
+      <div class="daily-story-pic" v-if="story.images">
         <img :src="story.images[0]" alt="">
+        <div class="daily-story-multipic"
+             v-if="story.multipic">
+          <i class="iconfont icon-duotu"></i>
+        多图</div>
       </div>
     </div>
   </div>
@@ -91,6 +95,18 @@
 
         img {
           height: 100%;
+        }
+
+        .daily-story-multipic {
+          background-color: rgba(0, 0, 0, 0.7);
+          color: #FFF;
+          font-size: 12px;
+          width: 40%;
+          text-align: center;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          padding: 0 0.2rem;
         }
       }
     }
