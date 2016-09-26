@@ -6,7 +6,7 @@
            @touchstart="setTouchX()" 
            @touchmove="touchMove()"
            @touchend="touchEnd()"
-           @click="setNowWatching(data.id)">
+           @click="tap(data.id)">
         <img :src="data.image" alt="">
         <h3>{{ data.title }}</h3>
       </div>
@@ -101,6 +101,11 @@
         slideContainer.className = "";
         slidePoint.className = "";
       },
+      tap(id) {
+        this.setNowWatching(id);
+        this.endLoop();
+        this.$route.router.go('/story/' + id);
+      }
     },
     ready() {
       this.startLoop();

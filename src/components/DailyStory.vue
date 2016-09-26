@@ -5,7 +5,7 @@
          v-for="story in today"
          @touchstart="touching"
          @touchEnd="touchEnd"
-         @click="setNowWatching(story.id)">
+         @click="tap(story.id)">
       <h4>{{ story.title }}</h4>
       <div class="daily-story-pic" v-if="story.images">
         <img :src="story.images[0]" alt="">
@@ -45,7 +45,13 @@
       },
       touchEnd() {
         var touch = document.getElementById('touching');
-        touch.id = "";
+        if (touch) {
+          touch.id = "";
+        }
+      },
+      tap(id) {
+        this.setNowWatching(id);
+        this.$route.router.go('/story/' + id);
       }
     }
   }

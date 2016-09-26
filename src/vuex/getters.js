@@ -5,3 +5,7 @@ export const getTopStories = (state) => {
 export const getTodayStories = (state) => {
   return state.stories;
 }
+
+export const getNowWatching = (state) => {
+  return state.nowWatching;
+}

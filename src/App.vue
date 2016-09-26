@@ -6,7 +6,6 @@
 
 <script>
   import store from './vuex/store';
-  import Slide from './components/Slide'
   import { initStore } from './vuex/actions'; 
 
   export default {
@@ -15,9 +14,6 @@
       actions: {
         initStore,
       }
-    },
-    components: {
-      Slide,
     },
     data() {
       return {
