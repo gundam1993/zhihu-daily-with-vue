@@ -5,3 +5,5 @@ function makeAction(type) {
 }
 
 export const initStore = makeAction('INIT_STORE');
+
+export const setNowWatching = makeAction('SET_NOWWATCHING');

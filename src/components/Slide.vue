@@ -1,11 +1,12 @@
 <template>
   <div id="slide">
-    <div class="slide-container">
+    <div id="slide-container">
       <div v-for="data in content" 
            class="slide-box" 
            @touchstart="setTouchX()" 
            @touchmove="touchMove()"
-           @touchend="touchEnd()">
+           @touchend="touchEnd()"
+           @click="tap(data.id)">
         <img :src="data.image" alt="">
         <h3>{{ data.title }}</h3>
       </div>
@@ -18,12 +19,22 @@
 </template>
 
 <script>
+  import { setNowWatching } from '../vuex/actions'
+
   export default {
     data() {
       return {
         touchX : 0,
         index: 0,
+        left: 0,
+        movelength: 0,
+        loop: "",
       }
+    },
+    vuex: {
+      actions: {
+        setNowWatching,
+      },
     },
     props: {
       content: {
@@ -36,41 +47,84 @@
     methods: {
       setTouchX() {
         this.touchX = event.touches[0].clientX;
+        this.endLoop();
       },
 
       touchMove() {
         event.preventDefault();
-        event.target.parentNode.parentNode.style.left =  (event.touches[0].clientX  - this.touchX) + 'px';
-      },
-      slideMove(i) {
-        
-      }
-      touchEnd() {
-        var distanse = event.target.parentNode.parentNode.style.left
-        console.log(event.target.parentNode.parentNode.style.left);
-        if (Math.abs(event.target.x) <= event.target.offsetWidth / 2) {
-          
+        var target = event.target.parentNode.parentNode,
+            distance = event.touches[0].clientX -this.touchX,
+            result = -this.left + distance;
+        if (this.left === 0 && distance > 0) {
+          distance = 0;
+        }else if (this.left === 4 * document.body.offsetWidth && distance < 0) {
+          distance = 0;
         }else{
-          
+          target.style.transform = "translateX(" + result + "px)";
         }
-      }
+        this.movelength = distance;
+      },
+      touchEnd() {
+        this.startLoop();
+        if (this.movelength > (document.body.offsetWidth / 2)) {
+            this.index -= 1;
+          }else if (this.movelength < (-document.body.offsetWidth / 2)) {
+            this.index += 1
+          }
+          this.movelength = 0;
+        this.left = this.index * document.body.offsetWidth;
+        var target = event.target.parentNode.parentNode,
+            slidePoint = document.getElementById('slide-ponit-display');
+        target.style.transform = "translateX(-" + this.left + "px)";
+        slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
+
+      },
+      slideMove() {
+        var slideContainer = document.getElementById('slide-container'),
+            slidePoint = document.getElementById('slide-ponit-display');
+        this.index === 4 ? this.index = 0 : this.index ++;
+        this.left = this.index * document.body.offsetWidth;
+        slideContainer.style.transform = "translateX(-" + this.left + "px)";
+        slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
+      },
+      startLoop() {
+        var slideContainer = document.getElementById('slide-container'),
+            slidePoint = document.getElementById('slide-ponit-display');
+        this.loop = setInterval(this.slideMove, 8300);
+        slideContainer.className = "transition";
+        slidePoint.className = "transition";
+      },
+      endLoop() {
+        var slideContainer = document.getElementById('slide-container'),
+            slidePoint = document.getElementById('slide-ponit-display');
+        window.clearInterval(this.loop);
+        slideContainer.className = "";
+        slidePoint.className = "";
+      },
+      tap(id) {
+        this.setNowWatching(id);
+      },
     },
+    ready() {
+      this.startLoop();
+    }
   }
 </script>
 
 <style lang="scss" scoped>
+  .transition {
+    transition: transform 0.3s ease-in-out;
+  }
+
   #slide {
     height: 13rem;
     position: relative;
 
-    .slide-container {
+    #slide-container {
       width: 500%;
       height: 100%;
       display: flex;
       flex-direction: row-reverse;
-      position: absolute;
-      top: 0;
-      left: 0;
     }
 
     .slide-box {

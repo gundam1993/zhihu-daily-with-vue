@@ -9,6 +9,7 @@ const state = {
   date: "",
   stories: [],
   topStories: [],
+  nowWatching: "",
 };
 
 const mutations = {
@@ -16,6 +17,9 @@ const mutations = {
     state.date = data.body.date;
     state.stories = data.body.stories;
     state.topStories = data.body.top_stories;
+  },
+  SET_NOWWATCHING(state, data) {
+    state.nowWatching = data;
   }
 };
 
