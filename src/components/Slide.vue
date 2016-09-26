@@ -6,7 +6,7 @@
            @touchstart="setTouchX()" 
            @touchmove="touchMove()"
            @touchend="touchEnd()"
-           @click="tap(data.id)">
+           @click="setNowWatching(data.id)">
         <img :src="data.image" alt="">
         <h3>{{ data.title }}</h3>
       </div>
@@ -100,9 +100,6 @@
         window.clearInterval(this.loop);
         slideContainer.className = "";
         slidePoint.className = "";
-      },
-      tap(id) {
-        this.setNowWatching(id);
       },
     },
     ready() {

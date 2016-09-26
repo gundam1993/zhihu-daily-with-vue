@@ -4,7 +4,8 @@
     <div class="daily-story-block" 
          v-for="story in today"
          @touchstart="touching"
-         @touchEnd="touchEnd">
+         @touchEnd="touchEnd"
+         @click="setNowWatching(story.id)">
       <h4>{{ story.title }}</h4>
       <div class="daily-story-pic" v-if="story.images">
         <img :src="story.images[0]" alt="">
@@ -18,8 +19,14 @@
 </template>
 
 <script>
+  import { setNowWatching } from '../vuex/actions'
 
   export default {
+    vuex: {
+      actions: {
+        setNowWatching,
+      }
+    },
     props: {
       today: {
         type: Array,
