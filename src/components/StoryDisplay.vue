@@ -9,6 +9,11 @@
       </div>
         {{{ content.body }}}
       </div>
+      <div class="story-section" v-if="content.section">
+        <img :src="content.section.thumbnail">
+        本文来自：{{content.section.name}}·合集
+        <i class="iconfont icon-iconfontjiantou1"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -34,6 +39,9 @@
       fixImageUrl(content) {
         content.body = content.body.replace(/src="http\w{0,1}:\/\/p/g, 'src="https://images.weserv.nl/?url=p');
         content.image = content.image.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+        if (content.section) {
+          content.section.thumbnail = content.section.thumbnail.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+        }
       },
       parseToDOM(str){
         var div = document.createElement("div");
@@ -63,6 +71,10 @@
 </style>
 
 <style lang="scss" scoped>
+  .story-dsiplay {
+    background-color: #eee;
+  }
+
   .title-container {
     width: 100%;
     height: 13rem;
@@ -97,6 +109,26 @@
       position: absolute;
       bottom: 0.5rem;
       right: 0.5rem;
+    }
+  }
+
+  .story-section {
+    width: 90%;
+    height: 3rem;
+    background-color: #f0f0f0;
+    margin: 0 auto 1rem auto;
+    font-size: 0.7rem;
+    line-height: 3rem;
+
+    img {
+      height: 100%;
+      margin-right: 0.5rem;
+      vertical-align: top;
+    }
+
+    .icon-iconfontjiantou1 {
+      font-size: 1rem;
+      padding-left: 6.5rem;
     }
   }
 </style>
