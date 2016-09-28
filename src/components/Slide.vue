@@ -109,6 +109,9 @@
     },
     ready() {
       this.startLoop();
+    },
+    beforeDestroy() {
+      this.endLoop();
     }
   }
 </script>

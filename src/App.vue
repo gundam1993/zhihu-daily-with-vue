@@ -1,6 +1,8 @@
 <template>
   <div>
-    <router-view v-if="readyState"></router-view>
+    <router-view v-if="readyState" 
+                 transition="page-change"
+                 transition-mode="out-in"></router-view>
   </div>
 </template>
 
@@ -44,7 +46,7 @@ html {
   height: 100%;
   font-size:20px;
   box-sizing: border-box;
-  font-family: "lucida grande", "lucida sans unicode", lucida, helvetica, "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, Arial, Sans-serif;
 }
 
 
@@ -68,5 +70,17 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 .icon-duotu:before { content: "\e601"; }
+
+.page-change-transition {
+    transition: all .4s ease-in-out;
+  }
+  
+  .page-change-enter {
+    opacity: 0;
+  }
+  .page-change-leave {
+    transform: translate(-100%,0);
+    opacity: 0;
+  } 
 
 </style>

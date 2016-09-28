@@ -30,13 +30,16 @@
     ready() {
       this.topStories = this.getTopStories;
       this.stories = this.getTodayStories;
-      this.topStories.reverse();
       this.topStories.forEach(function (entry) {
         entry.image = entry.image.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
       }),
       this.stories.forEach(function (entry) {
         entry.images[0] = entry.images[0].replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
       })
+      var style = document.getElementById('storyCss');
+      if (style) {
+        style.remove();
+      }
     },
   }
 </script>

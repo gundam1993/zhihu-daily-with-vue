@@ -16,7 +16,7 @@ const mutations = {
   INIT_STORE(state, data) {
     state.date = data.body.date;
     state.stories = data.body.stories;
-    state.topStories = data.body.top_stories;
+    state.topStories = data.body.top_stories.reverse();
   },
   SET_NOWWATCHING(state, data) {
     state.nowWatching = data;
