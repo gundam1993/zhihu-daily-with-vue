@@ -64,7 +64,8 @@
     padding: 1rem 0;
     background-color: #eee;
     box-sizing: border-box;
-    position: flex;
+    display: flex;
+    align-items: center;
     flex-direction: column;
     justify-content: center;
     
@@ -73,6 +74,7 @@
       color: #aaa;
       font-weight: lighter;
       display: block;
+      width: 90%;
       margin-left: 1.5rem;
       user-select: none;
     }
@@ -85,8 +87,8 @@
       width: 90%;
       min-height: 6.5rem;
       padding: 0.75rem;
-      margin: 0.5rem 1rem;
       background-color: #FFF;
+      margin: 0.5rem 0;
       border: 1px solid #ccc;
       box-shadow: 0.05rem 0.05rem 0.1rem #ccc;
       border-radius: 5px;

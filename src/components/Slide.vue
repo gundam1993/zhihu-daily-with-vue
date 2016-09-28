@@ -90,7 +90,7 @@
       startLoop() {
         var slideContainer = document.getElementById('slide-container'),
             slidePoint = document.getElementById('slide-ponit-display');
-        this.loop = setInterval(this.slideMove, 8300);
+        this.loop = setInterval(this.slideMove, 7300);
         slideContainer.className = "transition";
         slidePoint.className = "transition";
       },
