@@ -1,8 +1,8 @@
 <template>
-  <div id="daily-story">
-  <span>今日热闻</span>
+  <div class="daily-story">
+  <span>{{ title }}</span>
     <div class="daily-story-block" 
-         v-for="story in today"
+         v-for="story in stories"
          @touchstart="touching"
          @touchEnd="touchEnd"
          @click="tap(story.id)">
@@ -28,12 +28,18 @@
       }
     },
     props: {
-      today: {
+      stories: {
         type: Array,
         default: function () {
           return [];
         },
       },
+      title: {
+        type: String,
+        default: function () {
+          return '今日热闻';
+        }
+      }
     },
     methods: {
       touching() {
@@ -58,10 +64,10 @@
 </script>
 
 <style lang="scss" scoped>
-  #daily-story {
+  .daily-story {
     width: 100%;
     height: 100%;
-    padding: 1rem 0;
+    padding-top: 0.5rem;
     background-color: #eee;
     box-sizing: border-box;
     display: flex;
@@ -71,7 +77,7 @@
     
     span {
       font-size: 16px;
-      color: #aaa;
+      color: #888;
       font-weight: lighter;
       display: block;
       width: 90%;
@@ -117,6 +123,7 @@
           color: #FFF;
           font-size: 12px;
           width: 40%;
+          min-width: 2rem;
           text-align: center;
           position: absolute;
           bottom: 0;

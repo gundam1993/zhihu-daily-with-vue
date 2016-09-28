@@ -6,20 +6,38 @@ Vue.use(Vuex);
 Vue.use(VueResource);
 
 const state = {
-  date: "",
-  stories: [],
+  loadedDate: "",
+  loadingStr: "",
+  todayStories: [],
   topStories: [],
+  oldStories: [],
   nowWatching: "",
 };
 
 const mutations = {
   INIT_STORE(state, data) {
-    state.date = data.body.date;
-    state.stories = data.body.stories;
+    state.loadedDate = new Date();
+    state.todayStories = data.body.stories;
     state.topStories = data.body.top_stories.reverse();
   },
   SET_NOWWATCHING(state, data) {
     state.nowWatching = data;
+  },
+  SET_LOADING_STR(state) {
+    const loaded = new Date(state.loadedDate),
+      loadingDay = new Date(loaded.getFullYear(),loaded.getMonth(),loaded.getDate() - 1),
+      loadingStrHead = "/api/4/news/before/";
+    if (loadingDay.getMonth() > 8 && loadingDay.getDate() > 8) {
+      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + (loadingDay.getMonth() + 1) + (loadingDay.getDate() + 1);
+    }else if(loadingDay.getDate() > 8) {
+      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + "0" + (loadingDay.getMonth() + 1) + (loadingDay.getDate() + 1);
+    }else {
+      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + "0" + (loadingDay.getMonth() + 1) + "0" + (loadingDay.getDate() + 1);
+    }
+    state.loadedDate = loadingDay;
+  },
+  ADD_OLDSTORIES(state, data) {
+    state.oldStories.push(data);
   }
 };
 

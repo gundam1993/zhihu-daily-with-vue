@@ -51,7 +51,7 @@
       },
 
       touchMove() {
-        event.preventDefault();
+        //event.preventDefault();
         var target = event.target.parentNode.parentNode,
             distance = event.touches[0].clientX -this.touchX,
             result = -this.left + distance;
@@ -77,7 +77,6 @@
             slidePoint = document.getElementById('slide-ponit-display');
         target.style.transform = "translateX(-" + this.left + "px)";
         slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
-
       },
       slideMove() {
         var slideContainer = document.getElementById('slide-container'),
@@ -122,19 +121,20 @@
   }
 
   #slide {
-    height: 13rem;
     position: relative;
+    height: 11rem;
 
     #slide-container {
       width: 500%;
       height: 100%;
       display: flex;
       flex-direction: row-reverse;
+      -webkit-overflow-scrolling: touch;
     }
 
     .slide-box {
       width: 20%;
-      height: 13rem;
+      height: 100%;
       z-index: 1;
       position: relative;
 

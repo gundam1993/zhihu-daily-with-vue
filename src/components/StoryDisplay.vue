@@ -43,7 +43,7 @@
           content.section.thumbnail = content.section.thumbnail.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         }
       },
-      parseToDOM(str){
+      parseToDOM(str) {
         var div = document.createElement("div");
         if(typeof str == "string") {
           div.innerHTML = str;
@@ -119,6 +119,7 @@
     margin: 0 auto 1rem auto;
     font-size: 0.7rem;
     line-height: 3rem;
+    position: relative;
 
     img {
       height: 100%;
@@ -128,7 +129,8 @@
 
     .icon-iconfontjiantou1 {
       font-size: 1rem;
-      padding-left: 6.5rem;
+      position: absolute;
+      right: 0.5rem;
     }
   }
 </style>

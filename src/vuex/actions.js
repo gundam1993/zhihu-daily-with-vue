@@ -7,3 +7,7 @@ function makeAction(type) {
 export const initStore = makeAction('INIT_STORE');
 
 export const setNowWatching = makeAction('SET_NOWWATCHING');
+
+export const setLoadingStr = makeAction('SET_LOADING_STR');
+
+export const addOldStories = makeAction('ADD_OLDSTORIES');

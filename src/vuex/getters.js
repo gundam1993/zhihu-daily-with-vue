@@ -3,9 +3,17 @@ export const getTopStories = (state) => {
 };
 
 export const getTodayStories = (state) => {
-  return state.stories;
-}
+  return state.todayStories;
+};
 
 export const getNowWatching = (state) => {
   return state.nowWatching;
-}
+};
+
+export const getLoadingStr = (state) => {
+  return state.loadingStr;
+};
+
+export const getOldStories = (state) => {
+  return state.oldStories;
+};
