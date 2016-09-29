@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view v-if="readyState" 
+    <router-view v-if="readyState"
                  transition="page-change"
                  transition-mode="out-in"></router-view>
   </div>
@@ -8,13 +8,17 @@
 
 <script>
   import store from './vuex/store';
-  import { initStore } from './vuex/actions'; 
+  import { initStore } from './vuex/actions';
+  import { getScrollHeight } from './vuex/getters';
 
   export default {
     store,
     vuex: {
       actions: {
         initStore,
+      },
+      getters: {
+        getScrollHeight,
       }
     },
     data() {

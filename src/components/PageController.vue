@@ -1,6 +1,6 @@
 <template>
   <div id="page-controller">
-    
+      <div></div>
   </div>
 </template>
 

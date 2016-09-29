@@ -19,12 +19,13 @@
 </template>
 
 <script>
-  import { setNowWatching } from '../vuex/actions'
+  import { setNowWatching,setScrollHeight } from '../vuex/actions'
 
   export default {
     vuex: {
       actions: {
         setNowWatching,
+        setScrollHeight,
       }
     },
     props: {
@@ -58,6 +59,7 @@
       tap(id) {
         this.setNowWatching(id);
         this.$route.router.go('/story/' + id);
+        this.setScrollHeight(window.scrollY);
       }
     }
   }

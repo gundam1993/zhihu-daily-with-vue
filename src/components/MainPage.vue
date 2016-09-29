@@ -11,7 +11,7 @@
 <script>
   import Slide from "./Slide";
   import DailyStory from "./DailyStory";
-  import { getTopStories, getTodayStories, getLoadingStr, getOldStories } from '../vuex/getters';
+  import { getTopStories, getTodayStories, getLoadingStr, getOldStories, getScrollHeight } from '../vuex/getters';
   import { setLoadingStr, addOldStories } from "../vuex/actions"
 
   export default {
@@ -21,6 +21,7 @@
         todayStories: [],
         oldStories: [],
         date: "",
+        scrollHeight: 0,
       }
     },
     components: {
@@ -33,6 +34,7 @@
         getTodayStories,
         getLoadingStr,
         getOldStories,
+        getScrollHeight,
       },
       actions: {
         setLoadingStr,
@@ -81,7 +83,7 @@
         }
       },
       loadOld() {
-        if (document.body.scrollHeight - window.scrollY < 900) {
+        if (document.body.scrollHeight - window.scrollY < 1500) {
           window.removeEventListener("scroll", this.loadOld)
           this.$http.get(this.getLoadingStr).then(function (response) {
             response.body.stories.forEach(function (entry) {
@@ -99,12 +101,17 @@
       this.topStories = this.getTopStories;
       this.todayStories = this.getTodayStories;
       this.oldStories = this.getOldStories;
+      this.scrollHeight = this.getScrollHeight;
       this.imageUrlFix();
       this.clearStyle();
+      console.log(document.body.scrollTop);
       if (this.getLoadingStr === "") {
         this.setLoadingStr();
       }
       window.addEventListener("scroll", this.loadOld);
+      setTimeout(function() {
+        window.scrollTo(0, this.scrollHeight);
+      }.bind(this),100)
     },
   }
 </script>

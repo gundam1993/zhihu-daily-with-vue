@@ -17,3 +17,7 @@ export const getLoadingStr = (state) => {
 export const getOldStories = (state) => {
   return state.oldStories;
 };
+
+export const getScrollHeight = (state) => {
+  return state.scrollHeight;
+};

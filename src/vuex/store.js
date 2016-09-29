@@ -6,6 +6,7 @@ Vue.use(Vuex);
 Vue.use(VueResource);
 
 const state = {
+  scrollHeight: 0,
   loadedDate: "",
   loadingStr: "",
   todayStories: [],
@@ -19,6 +20,9 @@ const mutations = {
     state.loadedDate = new Date();
     state.todayStories = data.body.stories;
     state.topStories = data.body.top_stories.reverse();
+  },
+  SET_SCROLL_HEIGHT(state, height) {
+    state.scrollHeight = height;
   },
   SET_NOWWATCHING(state, data) {
     state.nowWatching = data;
