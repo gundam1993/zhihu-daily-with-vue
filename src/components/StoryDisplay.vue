@@ -2,11 +2,18 @@
   <div id="story-dsiplay">
     <div v-show="readyState">
       <div v-if="content.type === 0">
-      <div class="title-container">
-        <img :src="content.image" alt="">
-        <h3>{{ content.title }}</h3>
-        <span>{{ content.image_source }}</span>
-      </div>
+        <div class="title-container">
+          <img :src="content.image" alt="">
+          <h3>{{ content.title }}</h3>
+          <span>{{ content.image_source }}</span>
+        </div>
+        <div class="story-recommenders" v-if="content.recommenders">
+          <span>推荐者</span>
+          <div class="story-recommenders-avatar"
+               v-for="recommender in content.recommenders">
+            <img :src="recommender.avatar">       
+          </div>
+        </div>
         {{{ content.body }}}
       </div>
       <div class="story-section" v-if="content.section">
@@ -15,12 +22,17 @@
         <i class="iconfont icon-iconfontjiantou1"></i>
       </div>
     </div>
+    <page-controller></page-controller>
   </div>
 </template>
 
 <script>
+  import PageController from "./PageController";
 
   export default {
+    components: {
+      PageController,
+    },
     data() {
       return {
         content: {},
@@ -41,6 +53,11 @@
         content.image = content.image.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         if (content.section) {
           content.section.thumbnail = content.section.thumbnail.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+        };
+        if (content.recommenders) {
+          content.recommenders.forEach(function (entry) {
+            entry.avatar = entry.avatar.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+          });
         }
       },
       parseToDOM(str) {
@@ -110,6 +127,39 @@
       bottom: 0.5rem;
       right: 0.5rem;
     }
+  }
+  
+  .story-recommenders {
+    width: 100%;
+    height: 3rem;
+    background-color: #f0f0f0;
+    line-height: 3rem;
+
+     span {
+        float: left;
+        height: 100%;
+        font-weight: bold;
+        font-size: 0.8rem;
+        margin-left: 0.5rem;
+     }
+
+     .story-recommenders-avatar {
+        display: inline-block;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1.3rem;
+        margin-left: 0.5rem;
+        padding-bottom: 0.2rem;
+
+        img {
+
+          height: 80%;
+          width: 80%;
+          vertical-align: bott;
+          object-fit: cover;
+          border-radius: 1.3rem;
+        }
+     }
   }
 
   .story-section {
