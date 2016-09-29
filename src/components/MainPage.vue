@@ -104,7 +104,6 @@
       this.scrollHeight = this.getScrollHeight;
       this.imageUrlFix();
       this.clearStyle();
-      console.log(document.body.scrollTop);
       if (this.getLoadingStr === "") {
         this.setLoadingStr();
       }
@@ -120,5 +119,6 @@
   #main-page {
     width: 100%;
     overflow: hidden;
+    font-family: "Helvetica Neue", Ubuntu, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
   }
 </style>
