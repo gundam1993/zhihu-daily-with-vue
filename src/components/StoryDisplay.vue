@@ -22,7 +22,7 @@
         <i class="iconfont icon-iconfontjiantou1"></i>
       </div>
     </div>
-    <page-controller></page-controller>
+    <page-controller :content="extra"></page-controller>
   </div>
 </template>
 
@@ -36,6 +36,7 @@
     data() {
       return {
         content: {},
+        extra: {},
         readyState: false,
       }
     },
@@ -69,13 +70,17 @@
       },
     },
     ready() {
-      var source = '/api/4/news/' + this.$route.params.storyId;
+      const source = '/api/4/news/' + this.$route.params.storyId,
+            extraSource = '/api/4/story-extra/' + this.$route.params.storyId;
       this.$http.get(source).then(function (response) {
         this.content = response.body;
         this.content.image = this.content.image.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         this.loadCss(this.content.css[0]);
         this.fixImageUrl(this.content);
         this.readyState = true;
+        this.$http.get(extraSource).then(function (response) {
+          this.extra = response.body;
+        });
       })
     }
   }

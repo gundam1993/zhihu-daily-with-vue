@@ -1,5 +1,5 @@
 <template>
-  <div id="page-controller">
+  <div id="page-controller" :class="{'page-controller-hide': controllerHide}">
     <div class="page-controller-btn-big"
          :class="{'page-controller-rotate': !hide}"
          @click="toggleMune">
@@ -8,10 +8,16 @@
     <div class="page-controller-memu" :class="{'page-controller-hide': hide}">
       <ul>
         <li>
-          <div class="page-controller-btn-small"></div>
+          <div class="page-controller-text">赞同数：{{content.popularity}}</div>
+          <div class="page-controller-btn-small">
+            <i class="iconfont icon-plusone"></i>
+          </div>
         </li>
         <li>
-          <div class="page-controller-btn-small"></div>
+          <div class="page-controller-text">评论数：{{content.comments}}</div>
+          <div class="page-controller-btn-small">
+            <i class="iconfont icon-comment"></i>
+          </div>
         </li>
       </ul>
     </div>
@@ -24,12 +30,33 @@
     data() {
       return {
         hide: true,
+        scrollY: 0,
+        controllerHide: false,
       }
+    },
+    props: {
+      content: {
+        type: Object,
+        default: function () {
+          return {};
+        },
+      },
     },
     methods: {
       toggleMune() {
         this.hide = !this.hide;
-      }
+      },
+    },
+    ready() {
+      var controller = document.getElementById('page-controller');
+      window.onscroll = function () {
+        if (window.scrollY >= this.scrollY && controller.className === "") {
+          this.controllerHide = true;
+        }else if (window.scrollY < this.scrollY && controller.className === "page-controller-hide") {
+          this.controllerHide = false;
+        };
+        this.scrollY = window.scrollY;
+      }.bind(this);
     }
   }
 </script>
@@ -41,7 +68,12 @@
     position: fixed;
     top: 0;
     right: 0;
+    transition: all 0.3s ease;
   }
+
+  i {
+      font-size: 1rem;
+    }
 
   .page-controller-btn-big {
     position: fixed;
@@ -61,10 +93,6 @@
     &:active {
       background-color: #dc696a;
       transition: all 0.3s ease-in-out;
-    }
-
-    .icon-jiahao {
-      font-size: 1rem;
     }
   }
   
@@ -87,11 +115,27 @@
       list-style: none;
       text-align: right;
 
+      .page-controller-text {
+        height: 1.5rem;
+        font-size: 0.7rem;
+        background-color: #FFF;
+        border-radius: 0.1rem;
+        text-align: center;
+        line-height: 1.5rem;
+        display: inline-block;
+        padding: 0 0.3rem;
+        box-shadow: 0.1rem 0.1rem 0.2rem rgba(0, 0, 0, 0.4);
+        margin: 0.5rem 0 0.2rem 0.2rem;
+      }
+
       .page-controller-btn-small {
         height: 2rem;
         width: 2rem;
+        display: inline-block;
         background-color: #FFF;
         border-radius: 1rem;
+        text-align: center;
+        line-height: 2rem;
         box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.4);
         margin: 0.5rem 0 0.2rem 0.2rem;
         transition: all 0.3s ease-in-out;
@@ -102,7 +146,7 @@
   .page-controller-hide {
     transform: translateY(200%);
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
   }
 
   .page-controller-mask-hide {

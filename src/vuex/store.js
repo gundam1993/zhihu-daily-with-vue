@@ -29,16 +29,18 @@ const mutations = {
   },
   SET_LOADING_STR(state) {
     const loaded = new Date(state.loadedDate),
-      loadingDay = new Date(loaded.getFullYear(),loaded.getMonth(),loaded.getDate() - 1),
+      loadingDay = new Date(loaded.getFullYear(),loaded.getMonth(),loaded.getDate()),
       loadingStrHead = "/api/4/news/before/";
     if (loadingDay.getMonth() > 8 && loadingDay.getDate() > 8) {
-      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + (loadingDay.getMonth() + 1) + (loadingDay.getDate() + 1);
+      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + (loadingDay.getMonth() + 1) + (loadingDay.getDate());
     }else if(loadingDay.getDate() > 8) {
-      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + "0" + (loadingDay.getMonth() + 1) + (loadingDay.getDate() + 1);
+      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + "0" + (loadingDay.getMonth() + 1) + (loadingDay.getDate());
+    }else if(loadingDay.getMonth() > 8) {
+      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + (loadingDay.getMonth() + 1) + "0" + (loadingDay.getDate());
     }else {
-      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + "0" + (loadingDay.getMonth() + 1) + "0" + (loadingDay.getDate() + 1);
+      state.loadingStr = loadingStrHead + loadingDay.getFullYear() + "0" + (loadingDay.getMonth() + 1) + "0" + (loadingDay.getDate());
     }
-    state.loadedDate = loadingDay;
+    state.loadedDate = new Date(loaded.getFullYear(),loaded.getMonth(),loaded.getDate() - 1);
   },
   ADD_OLDSTORIES(state, data) {
     state.oldStories.push(data);
