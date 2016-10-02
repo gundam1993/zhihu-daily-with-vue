@@ -2,7 +2,8 @@ import Vue from 'vue';
 import App from './App.vue';
 import VueRouter from 'vue-router';
 import MainPage from "./components/MainPage.vue";
-import StoryDisplay from "./components/StoryDisplay.vue"
+import StoryDisplay from "./components/StoryDisplay.vue";
+import CommentPage from "./components/CommentPage.vue";
 
 Vue.use(VueRouter);
 
@@ -13,7 +14,10 @@ router.map({
     component: MainPage,
   },
   "/story/:storyId": {
-    component: StoryDisplay
+    component: StoryDisplay,
+  },
+  "/comment/:storyId": {
+    component: CommentPage,
   }
 });
 

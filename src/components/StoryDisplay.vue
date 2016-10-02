@@ -28,6 +28,7 @@
 
 <script>
   import PageController from "./PageController";
+  import { setNowWatching } from "../vuex/actions"
 
   export default {
     components: {
@@ -38,6 +39,11 @@
         content: {},
         extra: {},
         readyState: false,
+      }
+    },
+    vuex: {
+      actions: {
+        setNowWatching,
       }
     },
     methods: {
@@ -68,6 +74,10 @@
           return div.childNodes;
         }
       },
+      setWatchId() {
+        var id = this.$route.path.match(/\d+/);
+        this.setNowWatching(id[0]);
+      }
     },
     ready() {
       const source = '/api/4/news/' + this.$route.params.storyId,
@@ -82,6 +92,7 @@
           this.extra = response.body;
         });
       })
+      this.setWatchId();
     }
   }
 </script>
@@ -160,7 +171,7 @@
 
           height: 80%;
           width: 80%;
-          vertical-align: bott;
+          vertical-align: bottom;
           object-fit: cover;
           border-radius: 1.3rem;
         }

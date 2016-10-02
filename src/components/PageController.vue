@@ -9,13 +9,15 @@
       <ul>
         <li>
           <div class="page-controller-text">赞同数：{{content.popularity}}</div>
-          <div class="page-controller-btn-small">
+          <div class="page-controller-btn-small"
+               :class="{'page-controller-agreed': agreed}" 
+               @click="agree()">
             <i class="iconfont icon-plusone"></i>
           </div>
         </li>
         <li>
           <div class="page-controller-text">评论数：{{content.comments}}</div>
-          <div class="page-controller-btn-small">
+          <div class="page-controller-btn-small" @click="showComment()">
             <i class="iconfont icon-comment"></i>
           </div>
         </li>
@@ -32,6 +34,7 @@
         hide: true,
         scrollY: 0,
         controllerHide: false,
+        agreed: false,
       }
     },
     props: {
@@ -46,6 +49,17 @@
       toggleMune() {
         this.hide = !this.hide;
       },
+      agree() {
+        if (!this.agreed) {
+          this.content.popularity += 1;
+        }else{
+          this.content.popularity -= 1;
+        }
+        this.agreed = !this.agreed;
+      },
+      showComment() {
+        this.$route.router.go(this.$route.path.replace(/story/, "comment"));
+      }
     },
     ready() {
       var controller = document.getElementById('page-controller');
@@ -118,6 +132,7 @@
       .page-controller-text {
         height: 1.5rem;
         font-size: 0.7rem;
+        font-weight: bold;
         background-color: #FFF;
         border-radius: 0.1rem;
         text-align: center;
@@ -146,13 +161,16 @@
   .page-controller-hide {
     transform: translateY(200%);
     opacity: 0;
-    display: none;
     transition: all 0.5s ease;
   }
 
   .page-controller-mask-hide {
     opacity: 0;
     transition: all 0.3s ease;
+  }
+  
+  .page-controller-agreed {
+    color: #FFB11B;
   }
 
   .page-controller-rotate {

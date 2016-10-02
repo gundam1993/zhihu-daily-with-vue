@@ -98,8 +98,7 @@
       background-color: #FFF;
       margin: 0.5rem 0;
       border: 1px solid #ccc;
-      box-shadow: 0.05rem 0.05rem 0.1rem #ccc;
-      border-radius: 5px;
+      box-shadow: 0.05rem 0.05rem 0.1rem #000;
       box-sizing: border-box;
       position: relative;
       transition: all 0.2s ease;
