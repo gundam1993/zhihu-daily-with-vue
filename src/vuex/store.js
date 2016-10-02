@@ -31,9 +31,9 @@ const mutations = {
     const loaded = new Date(state.loadedDate),
       loadingDay = new Date(loaded.getFullYear(),loaded.getMonth(),loaded.getDate()),
       loadingStrHead = "/api/4/news/before/";
-    if (loadingDay.getMonth() > 8 && loadingDay.getDate() > 8) {
+    if (loadingDay.getMonth() > 8 && loadingDay.getDate() > 9) {
       state.loadingStr = loadingStrHead + loadingDay.getFullYear() + (loadingDay.getMonth() + 1) + (loadingDay.getDate());
-    }else if(loadingDay.getDate() > 8) {
+    }else if(loadingDay.getDate() > 9) {
       state.loadingStr = loadingStrHead + loadingDay.getFullYear() + "0" + (loadingDay.getMonth() + 1) + (loadingDay.getDate());
     }else if(loadingDay.getMonth() > 8) {
       state.loadingStr = loadingStrHead + loadingDay.getFullYear() + (loadingDay.getMonth() + 1) + "0" + (loadingDay.getDate());

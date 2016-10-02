@@ -1,10 +1,20 @@
 <template>
-  <div id="main-page" @scroll="loadOLd()">
+  <div id="main-page" @scroll="loadOld()">
     <slide :content="topStories"></slide>  
     <daily-story :stories="todayStories"></daily-story>
     <daily-story v-for="story in oldStories" 
                  :stories="story.stories" 
                  :title="story.date"></daily-story>
+    <div class="main-page-error" v-show="errorBlock">
+      <div class="error-block">
+        <h4>似乎出了点问题...</h4>
+        <div class="error-btn" @click="loadOld()">重新加载</div>
+        <div class="error-btn" @click="ignoreError()">忽略</div>
+        <div class="error-icon">
+          <i class="iconfont icon-signalwifioff"></i>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,6 +32,7 @@
         oldStories: [],
         date: "",
         scrollHeight: 0,
+        errorBlock: true,
       }
     },
     components: {
@@ -95,7 +106,10 @@
             window.addEventListener("scroll", this.loadOld);
           })
         }
-      }
+      },
+      ignoreError() {
+        this.errorBlock = !this.errorBlock;
+      },
     },
     ready() {
       this.topStories = this.getTopStories;
@@ -120,5 +134,56 @@
     width: 100%;
     overflow: hidden;
     font-family: "Helvetica Neue", Ubuntu, "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+  }
+
+  .main-page-error {
+    width: 100%;
+    background-color: #eee;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+
+    .error-block {
+      width: 90%;
+      height: 6.5rem;
+      padding: 0.75rem;
+      background-color: #FFF;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      box-shadow: 0.05rem 0.05rem 0.1rem #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+      position: relative;
+
+      .error-btn {
+        font-size: 0.8rem;
+        width: 4rem;
+        text-align: center;
+        color: #0089A7;
+        display: inline-block;
+        padding-right:  0.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .error-icon {
+        float: right;
+        height: 5rem;
+        width: 5rem;
+        background-color: #999;
+        color: #FFF;
+        border-radius: 2.5rem;
+        text-align: center;
+        line-height: 5rem;
+        position: absolute;
+        top: 0.6rem;
+        right: 1rem;
+
+        .iconfont {
+          font-size: 3rem;
+        }
+      }
+    }
   }
 </style>

@@ -146,6 +146,7 @@
   .page-controller-hide {
     transform: translateY(200%);
     opacity: 0;
+    display: none;
     transition: all 0.5s ease;
   }
 
