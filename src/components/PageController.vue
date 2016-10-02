@@ -76,14 +76,6 @@
 </script>
 
 <style lang="scss" scoped>
-  #page-controller {
-    height: 100%;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    right: 0;
-    transition: all 0.3s ease;
-  }
 
   i {
       font-size: 1rem;
@@ -111,8 +103,11 @@
   }
   
   .page-controller-mask{
-    height: 100%;
-    width: 100%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     background-color: rgba(255, 255, 255, 0.6);
     transition: all 0.3s ease-in-out;
   }

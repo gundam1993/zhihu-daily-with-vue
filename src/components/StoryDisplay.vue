@@ -171,7 +171,7 @@
 
           height: 80%;
           width: 80%;
-          vertical-align: bottom;
+          vertical-align: center;
           object-fit: cover;
           border-radius: 1.3rem;
         }
