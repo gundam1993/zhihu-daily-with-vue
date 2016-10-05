@@ -111,6 +111,7 @@
         this.errorBlock = !this.errorBlock;
       },
     },
+    
     ready() {
       this.topStories = this.getTopStories;
       this.todayStories = this.getTodayStories;

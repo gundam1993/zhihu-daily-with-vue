@@ -1,15 +1,13 @@
 <template>
   <div id="comments-page">
     <div class="comments-block">
-      <div class="comment-length">{{ longComments.length }}条长评</div>
-      <div class="commit-toggle-btn">看短评</div>
-      <div class="no-long-comment" v-if="!longComments.length">
+      <div class="no-long-comment" v-if="!display.length">
           <div>
             <i class="iconfont icon-weekend" id="icon-weekend"></i>
             深度评论虚位以待
           </div>
         </div>
-      <div class="comment-content-block" v-for="comment in longComments">
+      <div class="comment-content-block" v-for="comment in display" transition="comment-change">
         
         <div class="comment-author-block">
           <div class="comment-author-avatar">
@@ -36,7 +34,20 @@
         </div>
       </div>
     </div>
-    
+    <div id="comment-controller"
+         :class="{'comment-controller-hide': ControllerHide}"
+         v-el:comment-controller>
+      <div class="comment-length">
+        <span v-if="display === longComments">{{ longComments.length }}条长评</span>
+        <span v-if="display === shortComments">{{ shortComments.length }}条短评</span>
+      </div>
+      <div class="commit-toggle-btn"
+           v-if="display === longComments"
+           @click="toggleComment()">看短评</div>
+      <div class="commit-toggle-btn"
+           v-if="display === shortComments"
+           @click="toggleComment()">看长评</div>
+    </div>
   </div>
 </template>
 
@@ -47,9 +58,10 @@
   export default {
     data() {
       return {
+        display: [],
         longComments: [],
         shortComments: [],
-        showLongComments: true,
+        ControllerHide: false,
       }
     },
     vuex: {
@@ -81,6 +93,17 @@
           var date = new Date(parseInt(entry.time) * 1000);
           entry.time = (date.getMonth() + 1) + "-" + (date.getDate()) +" " + (date.getHours()) + ":" + (date.getMinutes());
         })
+      },
+      toggleComment() {
+        this.display === this.longComments ? this.display = this.shortComments : this.display = this.longComments;
+      },
+      toggleController() {
+        if (window.scrollY >= this.scrollY && this.$els.commentController.className === "") {
+          this.ControllerHide = true;
+        }else if (window.scrollY < this.scrollY && this.$els.commentController.className === "comment-controller-hide") {
+          this.ControllerHide = false;
+        };
+        this.scrollY = window.scrollY;
       }
     },
     ready() {
@@ -92,13 +115,18 @@
         this.fixImageUrl(response.body.comments);
         this.fixTime(response.body.comments);
         this.longComments = response.body.comments;
+        this.display = this.longComments;
       });
       this.$http.get(shortCommentSource).then(function (response) {
         this.fixImageUrl(response.body.comments);
         this.fixTime(response.body.comments);
         this.shortComments = response.body.comments;
       });
-    }
+      window.onscroll = this.toggleController.bind(this);
+    },
+    beforeDestroy() {
+      window.onscroll = "";
+    },
   }
 </script>
 
@@ -112,16 +140,6 @@
     font-family: 'Helvetica Neue', Helvetica, Arial, Sans-serif;
   }
 
-  .comment-length {
-    font-size: 0.8rem;
-    font-weight: lighter;
-    display: block;
-    width: 90%;
-    height: 1.5rem;
-    line-height: 1.5rem;
-    margin-left: 1.5rem;
-    user-select: none;
-  }
   .comments-block{
     width: 100%;
     background-color: #eee;
@@ -129,6 +147,7 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    transition: all 0.3s ease-in-out;
   }
 
   .comment-content-block {
@@ -216,14 +235,51 @@
     }
   }
 
-  .commit-toggle-btn {
-    height: 1.5rem;
-    line-height: 1.5rem;
-    padding: 0 0.5rem;
-    background-color: #D75455;
-    color: #FFF;
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
+  #comment-controller {
+    width: 100%;
+    height: 2.5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #FFF;
+    border-top: 1px solid #ccc;
+    transition: all 0.5s ease;
+
+    .comment-length {
+      font-size: 1rem;
+      font-weight: lighter;
+      height: 2.5rem;
+      line-height: 2.5rem;
+      margin-left: 1.5rem;
+      user-select: none;
+    }
+
+    .commit-toggle-btn {
+      height: 1.5rem;
+      line-height: 1.5rem;
+      padding: 0 0.5rem;
+      background-color: #D75455;
+      color: #FFF;
+      position: absolute;
+      right: 0.5rem;
+      top: 0.5rem;
+    }
+  }
+
+  .comment-controller-hide {
+    transform: translateY(100%);
+    opacity: 0;
+    transition: all 0.5s ease;
+  }
+
+  .comment-change-transition {
+    transition: all .6s ease-in-out;
+  }
+  
+  .comment-change-enter {
+    opacity: 0;
+  }
+  .comment-change-leave {
+    opacity: 0;
   }
 </style>

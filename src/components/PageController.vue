@@ -1,8 +1,9 @@
 <template>
-  <div id="page-controller" :class="{'page-controller-hide': controllerHide}">
-    <div class="page-controller-btn-big"
-         :class="{'page-controller-rotate': !hide}"
-         @click="toggleMune">
+  <div id="page-controller">
+    <div id="page-controller-btn-big"
+         :class="{'page-controller-rotate': !hide, 'page-controller-hide': controllerHide}"
+         v-el:controller-btn
+         @click="toggleMenu">
       <i class="iconfont icon-jiahao"></i>
     </div>
     <div class="page-controller-memu" :class="{'page-controller-hide': hide}">
@@ -46,7 +47,7 @@
       },
     },
     methods: {
-      toggleMune() {
+      toggleMenu() {
         this.hide = !this.hide;
       },
       agree() {
@@ -59,19 +60,22 @@
       },
       showComment() {
         this.$route.router.go(this.$route.path.replace(/story/, "comment"));
-      }
-    },
-    ready() {
-      var controller = document.getElementById('page-controller');
-      window.onscroll = function () {
-        if (window.scrollY >= this.scrollY && controller.className === "") {
+      },
+      toggleBtn() {
+        if (window.scrollY >= this.scrollY && this.$els.controllerBtn.className === "") {
           this.controllerHide = true;
-        }else if (window.scrollY < this.scrollY && controller.className === "page-controller-hide") {
+        }else if (window.scrollY < this.scrollY && this.$els.controllerBtn.className === "page-controller-hide") {
           this.controllerHide = false;
         };
         this.scrollY = window.scrollY;
-      }.bind(this);
-    }
+      }
+    },
+    ready() {
+      window.onscroll = this.toggleBtn.bind(this);
+    },
+    beforeDestroy() {
+      window.onscroll = "";
+    },
   }
 </script>
 
@@ -81,7 +85,7 @@
       font-size: 1rem;
     }
 
-  .page-controller-btn-big {
+  #page-controller-btn-big {
     position: fixed;
     right: 0.7rem;
     bottom: 0.7rem;
@@ -156,7 +160,7 @@
   .page-controller-hide {
     transform: translateY(200%);
     opacity: 0;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
   }
 
   .page-controller-mask-hide {

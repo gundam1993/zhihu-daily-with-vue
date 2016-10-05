@@ -79,6 +79,7 @@
         this.setNowWatching(id[0]);
       }
     },
+    
     ready() {
       const source = '/api/4/news/' + this.$route.params.storyId,
             extraSource = '/api/4/story-extra/' + this.$route.params.storyId;
@@ -93,7 +94,7 @@
         });
       })
       this.setWatchId();
-    }
+    },
   }
 </script>
 

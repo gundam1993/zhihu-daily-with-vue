@@ -1,6 +1,6 @@
 <template>
   <div id="slide">
-    <div id="slide-container">
+    <div id="slide-container" v-el:slide-container>
       <div v-for="data in content" 
            class="slide-box" 
            @touchstart="setTouchX()" 
@@ -13,7 +13,7 @@
     </div>
     <div class="slide-pointers">
       <div v-for="data in content" class="slide-ponit"></div>
-      <div id="slide-ponit-display"></div>
+      <div id="slide-ponit-display" v-el:slide-point></div>
     </div>
   </div>
 </template>
@@ -51,7 +51,6 @@
       },
 
       touchMove() {
-        //event.preventDefault();
         var target = event.target.parentNode.parentNode,
             distance = event.touches[0].clientX -this.touchX,
             result = -this.left + distance;
@@ -73,32 +72,25 @@
           }
           this.movelength = 0;
         this.left = this.index * document.body.offsetWidth;
-        var target = event.target.parentNode.parentNode,
-            slidePoint = document.getElementById('slide-ponit-display');
+        var target = event.target.parentNode.parentNode;
         target.style.transform = "translateX(-" + this.left + "px)";
-        slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
+        this.$els.slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
       },
       slideMove() {
-        var slideContainer = document.getElementById('slide-container'),
-            slidePoint = document.getElementById('slide-ponit-display');
         this.index === 4 ? this.index = 0 : this.index ++;
         this.left = this.index * document.body.offsetWidth;
-        slideContainer.style.transform = "translateX(-" + this.left + "px)";
-        slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
+        this.$els.slideContainer.style.transform = "translateX(-" + this.left + "px)";
+        this.$els.slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
       },
       startLoop() {
-        var slideContainer = document.getElementById('slide-container'),
-            slidePoint = document.getElementById('slide-ponit-display');
-        this.loop = setInterval(this.slideMove, 7300);
-        slideContainer.className = "transition";
-        slidePoint.className = "transition";
+        this.loop = setInterval(this.slideMove, 6300);
+        this.$els.slideContainer.className = "transition";
+        this.$els.slidePoint.className = "transition";
       },
       endLoop() {
-        var slideContainer = document.getElementById('slide-container'),
-            slidePoint = document.getElementById('slide-ponit-display');
         window.clearInterval(this.loop);
-        slideContainer.className = "";
-        slidePoint.className = "";
+        this.$els.slideContainer.className = "";
+        this.$els.slidePoint.className = "";
       },
       tap(id) {
         this.setNowWatching(id);

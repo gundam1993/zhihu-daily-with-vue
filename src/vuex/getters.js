@@ -19,5 +19,5 @@ export const getOldStories = (state) => {
 };
 
 export const getScrollHeight = (state) => {
-  return state.scrollHeight;
+  return state.mainPageHeight;
 };
