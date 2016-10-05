@@ -1,11 +1,12 @@
 <template>
   <div id="comments-page">
-    <div class="long-comments">
+    <div class="comments-block">
       <div class="comment-length">{{ longComments.length }}条长评</div>
+      <div class="commit-toggle-btn">看短评</div>
       <div class="no-long-comment" v-if="!longComments.length">
           <div>
             <i class="iconfont icon-weekend" id="icon-weekend"></i>
-            深度长评虚位以待
+            深度评论虚位以待
           </div>
         </div>
       <div class="comment-content-block" v-for="comment in longComments">
@@ -113,13 +114,15 @@
 
   .comment-length {
     font-size: 0.8rem;
-      font-weight: lighter;
-      display: block;
-      width: 90%;
-      margin-left: 1.5rem;
-      user-select: none;
+    font-weight: lighter;
+    display: block;
+    width: 90%;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    margin-left: 1.5rem;
+    user-select: none;
   }
-  .long-comments{
+  .comments-block{
     width: 100%;
     background-color: #eee;
     display: flex;
@@ -129,11 +132,9 @@
   }
 
   .comment-content-block {
-    width: 90%;
+    width: 100%;
     background-color: #FFF;
     margin: 0.5rem 0;
-    border: 1px solid #ccc;
-    box-shadow: 0.05rem 0.05rem 0.1rem #000;
     box-sizing: border-box;
     position: relative;
     padding: 0 0.5rem;
@@ -213,5 +214,16 @@
       font-size: 6rem;
       text-align: center;
     }
+  }
+
+  .commit-toggle-btn {
+    height: 1.5rem;
+    line-height: 1.5rem;
+    padding: 0 0.5rem;
+    background-color: #D75455;
+    color: #FFF;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
   }
 </style>
