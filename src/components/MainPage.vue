@@ -1,17 +1,20 @@
 <template>
   <div id="main-page" @scroll="loadOld()">
-    <slide :content="topStories"></slide>  
-    <daily-story :stories="todayStories"></daily-story>
-    <daily-story v-for="story in oldStories" 
-                 :stories="story.stories" 
-                 :title="story.date"></daily-story>
-    <div class="main-page-error" v-show="errorBlock">
-      <div class="error-block">
-        <h4>似乎出了点问题...</h4>
-        <div class="error-btn" @click="loadOld()">重新加载</div>
-        <div class="error-btn" @click="ignoreError()">忽略</div>
-        <div class="error-icon">
-          <i class="iconfont icon-signalwifioff"></i>
+    <sidebar></sidebar>
+    <slide :content="topStories"></slide>
+    <div>  
+      <daily-story :stories="todayStories"></daily-story>
+      <daily-story v-for="story in oldStories" 
+                   :stories="story.stories" 
+                   :title="story.date"></daily-story>
+      <div class="main-page-error" v-show="errorBlock">
+        <div class="error-block">
+          <h4>似乎出了点问题...</h4>
+          <div class="error-btn" @click="loadOld()">重新加载</div>
+          <div class="error-btn" @click="ignoreError()">忽略</div>
+          <div class="error-icon">
+            <i class="iconfont icon-signalwifioff"></i>
+          </div>
         </div>
       </div>
     </div>
@@ -21,6 +24,7 @@
 <script>
   import Slide from "./Slide";
   import DailyStory from "./DailyStory";
+  import Sidebar from "./Sidebar"
   import { getTopStories, getTodayStories, getLoadingStr, getOldStories, getScrollHeight } from '../vuex/getters';
   import { setLoadingStr, addOldStories } from "../vuex/actions"
 
@@ -38,6 +42,7 @@
     components: {
       Slide,
       DailyStory,
+      Sidebar,
     },
     vuex: {
       getters: {
@@ -125,7 +130,7 @@
       window.addEventListener("scroll", this.loadOld);
       setTimeout(function() {
         window.scrollTo(0, this.scrollHeight);
-      }.bind(this),100)
+      }.bind(this),100);
     },
   }
 </script>
