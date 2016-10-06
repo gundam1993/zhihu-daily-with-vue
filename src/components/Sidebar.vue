@@ -1,27 +1,31 @@
 <template>
   <div id="sidebar">
     <div class="sidebar-main">
-      <i class="iconfont icon-menu" @click="showSidebar()"></i>
-        <span>首页</span>
+      <i class="iconfont icon-menu" @click="toggleSidebar()"></i>
+        <span v-if="this.$route.path === '/index'">首页</span>
+        <span v-else>{{ title }}</span>
     </div>
     <div class="sidebar-mask" 
          :class="{'sidebar-block-hide': hide}"
          @click="showSidebar()"></div>
     <div class="sidebar-block" :class="{'sidebar-block-hide': hide}">
       <div class="sidebar-homepage">
-        <div class="sidebar-about">
+        <div class="sidebar-about" @click="toggleSidebar()">
           <img src="http://tva2.sinaimg.cn/crop.518.65.901.901.180/b2f93831jw8evp8z6co3vj21gx0ts4c2.jpg">
           <span>gundam1993</span>
         </div>
-        <div>
-          <i class="iconfont icon-home"></i>
-          <span>首页</span>
+        <div @click="toggleSidebar()" v-link="'/index'">
+            <i class="iconfont icon-home"></i>
+            <span>首页</span>
         </div>
       </div>
-        <div v-for="topic in topics" class="sidebar-topics">
+      <div v-for="topic in topics" 
+           class="sidebar-topics"
+           v-link="{name: 'theme', params: { themeId: topic.id }}" 
+           @click="toggleSidebar()">
           {{ topic.name }}
           <i class="iconfont icon-jiahao"></i>
-        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -34,10 +38,18 @@
         hide: true,
       }
     },
+    props: {
+      title: {
+        type: String,
+        default: function () {
+          return "";
+        },
+      },
+    },
     methods: {
-      showSidebar() {
+      toggleSidebar() {
         this.hide = !this.hide;
-      }
+      },
     },
     ready() {
       this.$http.get("/api/4/themes").then(function (response) {
@@ -67,8 +79,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
-      bottom: 0;
+      width: 100%;
+      height: 100%;
       background-color: rgba(0, 0, 0, 0.6);
       z-index: 1000;
     }
@@ -76,13 +88,14 @@
     .sidebar-block{
       position: fixed;
       top: 0;
-      bottom: 0;
       left: 0;
+      height: 100%;
       width: 65%;
       background-color: #FFF;
       margin: 0;
       z-index: 10000;
       transition: all 0.3s ease-in-out;
+      overflow: auto;
 
       .sidebar-homepage {
         color: #FFF;
@@ -130,6 +143,7 @@
         background-color: #FFF;
         position: relative;
         border: none;
+        font-size: 0.8rem;
 
         i {
           position: absolute;
@@ -138,7 +152,7 @@
         }
       }
     }
-  }
+  }  
 
   .sidebar-block-hide {
     transform: translateX(-100%);

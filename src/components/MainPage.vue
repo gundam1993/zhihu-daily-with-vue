@@ -24,7 +24,7 @@
 <script>
   import Slide from "./Slide";
   import DailyStory from "./DailyStory";
-  import Sidebar from "./Sidebar"
+  import Sidebar from "./Sidebar";
   import { getTopStories, getTodayStories, getLoadingStr, getOldStories, getScrollHeight } from '../vuex/getters';
   import { setLoadingStr, addOldStories } from "../vuex/actions"
 

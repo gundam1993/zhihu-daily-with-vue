@@ -6,7 +6,8 @@
          @touchstart="touching"
          @touchEnd="touchEnd"
          @click="tap(story.id)">
-      <h4>{{ story.title }}</h4>
+      <h4 class="daily-story-title-with-pic" v-if="story.images">{{ story.title }}</h4>
+      <h4 class="daily-story-title-without-pic" v-else>{{ story.title }}</h4>
       <div class="daily-story-pic" v-if="story.images">
         <img :src="story.images[0]" alt="">
         <div class="daily-story-multipic"
@@ -93,7 +94,6 @@
 
     .daily-story-block {
       width: 90%;
-      min-height: 6.5rem;
       padding: 0.75rem;
       background-color: #FFF;
       margin: 0.5rem 0;
@@ -103,17 +103,25 @@
       position: relative;
       transition: all 0.2s ease;
 
-      h4 {
+      .daily-story-title-with-pic {
         display: block;
         text-align: left;
         width: 65%;
+        display: block;
+        float: left;
+      }
+
+      .daily-story-title-without-pic {
+        display: block;
+        text-align: left;
+        width: 90%;
       }
 
       .daily-story-pic {
         height: 5rem;
-        position: absolute;
-        top: 0.75rem;
-        right: 0.75rem;
+        width: 5rem;
+        float: right;
+        position: relative;
 
         img {
           height: 100%;
@@ -126,10 +134,10 @@
           width: 40%;
           min-width: 2rem;
           text-align: center;
+          padding: 0 0.2rem;
           position: absolute;
           bottom: 0;
           right: 0;
-          padding: 0 0.2rem;
         }
       }
     }

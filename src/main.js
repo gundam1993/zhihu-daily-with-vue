@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import MainPage from "./components/MainPage.vue";
 import StoryDisplay from "./components/StoryDisplay.vue";
 import CommentPage from "./components/CommentPage.vue";
+import ThemePage from "./components/ThemePage.vue";
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,10 @@ router.map({
   },
   "/comment/:storyId": {
     component: CommentPage,
+  },
+  "/theme/:themeId": {
+    name: 'theme',
+    component: ThemePage,
   }
 });
 

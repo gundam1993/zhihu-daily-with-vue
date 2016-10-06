@@ -80,8 +80,8 @@
         }
       },
       setWatchId() {
-        var id = this.$route.path.match(/\d+/);
-        this.setNowWatching(id[0]);
+        var id = this.$route.params.storyId;
+        this.setNowWatching(id);
       },
       fixImageUrl(comments) {
         comments.forEach(function (entry) {

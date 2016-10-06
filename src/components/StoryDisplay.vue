@@ -1,8 +1,8 @@
 <template>
   <div id="story-dsiplay">
     <div v-show="readyState">
-      <div v-if="content.type === 0">
-        <div class="title-container">
+      <div>
+        <div class="title-container" v-if="content.image">
           <img :src="content.image" alt="">
           <h3>{{ content.title }}</h3>
           <span>{{ content.image_source }}</span>
@@ -13,6 +13,9 @@
                v-for="recommender in content.recommenders">
             <img :src="recommender.avatar">       
           </div>
+        </div>
+        <div v-if="!content.image" class="title-container-without-pic">
+          <h3>{{ content.title }}</h3>
         </div>
         {{{ content.body }}}
       </div>
@@ -57,7 +60,9 @@
       },
       fixImageUrl(content) {
         content.body = content.body.replace(/src="http\w{0,1}:\/\/p/g, 'src="https://images.weserv.nl/?url=p');
-        content.image = content.image.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+       if (content.image) {
+          content.image = content.image.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
+        }
         if (content.section) {
           content.section.thumbnail = content.section.thumbnail.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         };
@@ -85,7 +90,6 @@
             extraSource = '/api/4/story-extra/' + this.$route.params.storyId;
       this.$http.get(source).then(function (response) {
         this.content = response.body;
-        this.content.image = this.content.image.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p');
         this.loadCss(this.content.css[0]);
         this.fixImageUrl(this.content);
         this.readyState = true;
@@ -113,6 +117,7 @@
     width: 100%;
     height: 13rem;
     position: relative;
+    
     img {
       width: 100%;
       height: 100%;
@@ -198,6 +203,16 @@
       font-size: 1rem;
       position: absolute;
       right: 0.5rem;
+    }
+  }
+  .title-container-without-pic {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1rem;
+
+    h3 {
+      font-size: 1.17em;
+      color: #000;
     }
   }
 </style>
