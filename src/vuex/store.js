@@ -13,6 +13,7 @@ const state = {
   topStories: [],
   oldStories: [],
   nowWatching: "",
+  editors: [],
 };
 
 const mutations = {
@@ -44,6 +45,9 @@ const mutations = {
   },
   ADD_OLDSTORIES(state, data) {
     state.oldStories.push(data);
+  },
+  SET_EDITORS(state, editors) {
+    state.editors = editors;
   }
 };
 

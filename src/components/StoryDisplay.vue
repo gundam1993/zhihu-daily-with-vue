@@ -1,5 +1,5 @@
 <template>
-  <div id="story-dsiplay">
+  <div id="story-display">
     <div v-show="readyState">
       <div>
         <div class="title-container" v-if="content.image">
@@ -16,7 +16,7 @@
         </div>
         {{{ content.body }}}
       </div>
-      <div class="story-section" v-if="content.section">
+      <div class="story-section" v-if="content.section" v-link="{name: 'section', params: { sectionId: content.section.id }}">
         <img :src="content.section.thumbnail">
         本文来自：{{content.section.name}}·合集
         <i class="iconfont icon-iconfontjiantou1"></i>
@@ -69,13 +69,6 @@
           });
         }
       },
-      parseToDOM(str) {
-        var div = document.createElement("div");
-        if(typeof str == "string") {
-          div.innerHTML = str;
-          return div.childNodes;
-        }
-      },
       setWatchId() {
         var id = this.$route.path.match(/\d+/);
         this.setNowWatching(id[0]);
@@ -95,22 +88,18 @@
         });
       })
       this.setWatchId();
-      if (this.content.type === 0) {
-        var headline = document.getElementsByClassname('headline');
-        headline[0].style.display = "none";
-      }
     },
   }
 </script>
 
 <style type="text/css">
-  .headline {
-    float: left;
+  .img-place-holder {
+    display: none;
   }
 </style>
 
 <style lang="scss" scoped>
-  .story-dsiplay {
+  .story-display {
     background-color: #eee;
   }
 

@@ -8,6 +8,9 @@
          @click="tap(story.id)">
       <h4 class="daily-story-title-with-pic" v-if="story.images">{{ story.title }}</h4>
       <h4 class="daily-story-title-without-pic" v-else>{{ story.title }}</h4>
+      <div class="daily-story-date" v-if="story.display_date">
+        {{ story.display_date }}
+      </div>
       <div class="daily-story-pic" v-if="story.images">
         <img :src="story.images[0]" alt="">
         <div class="daily-story-multipic"
@@ -142,5 +145,13 @@
         }
       }
     }
+  }
+
+  .daily-story-date {
+    font-size: 0.7rem;
+    color: #999;
+    position: absolute;
+    left: 0.5rem;
+    bottom: 0.2rem;;
   }
 </style>

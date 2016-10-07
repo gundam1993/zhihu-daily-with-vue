@@ -6,7 +6,7 @@
         <h3>{{ content.description }}</h3>
         <span v-if="content.image_source">{{ content.image_source }}</span>
     </div>
-    <div class="theme-editors" v-if="content.editors">
+    <div class="theme-editors" v-if="content.editors" v-link="'/editors'">
       <span>主编</span>
       <div class="theme-editors-avatar"
            v-for="editor in content.editors">
@@ -20,12 +20,18 @@
 <script>
   import Sidebar from "./Sidebar";
   import DailyStory from "./DailyStory";
+  import { setEditors } from "../vuex/actions";
 
   export default {
     data() {
       return {
         content: {},
         id: 0,
+      }
+    },
+    vuex: {
+      actions: {
+        setEditors,
       }
     },
     components: {
@@ -81,6 +87,11 @@
         this.$http.get(source).then(function (response) {
           this.content = response.body;
           this.imageUrlFix();
+          if (this.content.editors) {
+            this.setEditors(this.content.editors);
+            const newdata = JSON.stringify(this.content.editors);
+            sessionStorage.setItem("editors", newdata);
+          }
         });
         window.addEventListener("scroll", this.loadOld);
         transition.next()

@@ -13,3 +13,5 @@ export const setLoadingStr = makeAction('SET_LOADING_STR');
 export const addOldStories = makeAction('ADD_OLDSTORIES');
 
 export const setScrollHeight = makeAction('SET_SCROLL_HEIGHT');
+
+export const setEditors = makeAction('SET_EDITORS');

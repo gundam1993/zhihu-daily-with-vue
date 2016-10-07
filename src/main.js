@@ -6,6 +6,8 @@ import StoryDisplay from "./components/StoryDisplay.vue";
 import CommentPage from "./components/CommentPage.vue";
 import ThemePage from "./components/ThemePage.vue";
 import AboutPage from "./components/AboutPage.vue";
+import SectionPage from "./components/SectionPage.vue";
+import EditorsPage from "./components/EditorsPage.vue"
 
 Vue.use(VueRouter);
 
@@ -27,6 +29,13 @@ router.map({
   },
   "/about": {
     component: AboutPage,
+  },
+  "/section/:sectionId": {
+    name: 'section',
+    component: SectionPage,
+  },
+  "/editors": {
+    component: EditorsPage,
   }
 });
 
