@@ -53,7 +53,7 @@
 
 <script>
   import { getNowWatching } from "../vuex/getters";
-  import { setNowWatching } from "../vuex/actions"
+  import { setNowWatching, readyStateChange } from "../vuex/actions"
 
   export default {
     data() {
@@ -69,7 +69,8 @@
         getNowWatching,
       },
       actions: {
-        setNowWatching
+        setNowWatching,
+        readyStateChange,
       }
     },
     methods: {
@@ -107,6 +108,7 @@
       }
     },
     ready() {
+      this.readyStateChange();
       this.clearStyle();
       this.setWatchId();
       const longCommentSource = "/api/4/story/" + this.getNowWatching + "/long-comments",
@@ -123,6 +125,7 @@
         this.shortComments = response.body.comments;
       });
       window.onscroll = this.toggleController.bind(this);
+      this.readyStateChange();
     },
     beforeDestroy() {
       window.onscroll = "";

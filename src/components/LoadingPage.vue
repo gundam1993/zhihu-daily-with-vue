@@ -1,7 +1,8 @@
 <template>
   <div id="loading-page">
       <div class="loading-page-main">
-        <div class="loading-page-title">知乎日報</div>
+        <div class="loading-page-title" v-if="this.$route.path === '/index'">知乎日報</div>
+        <div class="loading-page-title-blank" v-else></div>
         <i class="iconfont icon-loading"></i>
         <div class="loading-page-loading">Loading...</div>
       </div>
@@ -33,6 +34,12 @@
       font-family: "CHEKIANGSUNG";
       margin-bottom: 2rem;
       margin: 30% auto 20% auto;
+    }
+
+    .loading-page-title-blank
+    {
+      width: 3rem;
+      height: 15rem;
     }
 
     .loading-page-loading {

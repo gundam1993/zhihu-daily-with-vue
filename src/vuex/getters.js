@@ -24,4 +24,8 @@ export const getScrollHeight = (state) => {
 
 export const getEditors = (state)  => {
   return state.editors;
+};
+
+export const getReadyState = (state) => {
+  return state.readyState;
 }

@@ -74,6 +74,7 @@
       border: 1px solid #aaa;
       border-radius: 5px;
       margin: auto;
+      margin-bottom: 3rem;
     }
   }
 </style>

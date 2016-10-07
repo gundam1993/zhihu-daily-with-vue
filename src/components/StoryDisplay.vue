@@ -28,7 +28,7 @@
 
 <script>
   import PageController from "./PageController";
-  import { setNowWatching } from "../vuex/actions"
+  import { setNowWatching, readyStateChange } from "../vuex/actions"
 
   export default {
     components: {
@@ -44,6 +44,7 @@
     vuex: {
       actions: {
         setNowWatching,
+        readyStateChange,
       }
     },
     methods: {
@@ -76,6 +77,7 @@
     },
     
     ready() {
+      this.readyStateChange();
       const source = '/api/4/news/' + this.$route.params.storyId,
             extraSource = '/api/4/story-extra/' + this.$route.params.storyId;
       this.$http.get(source).then(function (response) {
@@ -88,6 +90,7 @@
         });
       })
       this.setWatchId();
+      this.readyStateChange();
     },
   }
 </script>

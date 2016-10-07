@@ -8,11 +8,17 @@
 <script>
   import Sidebar from "./Sidebar";
   import DailyStory from "./DailyStory";
+  import { readyStateChange } from "../vuex/actions";
 
   export default {
     data() {
       return {
         content: {},
+      }
+    },
+    vuex: {
+      actions: {
+        readyStateChange,
       }
     },
     components: {
@@ -55,8 +61,8 @@
       this.$http.get(source).then(function (response) {
         this.content = response.body;
         this.imageUrlFix();
+        window.addEventListener("scroll", this.loadOld);
       });
-      window.addEventListener("scroll", this.loadOld);
     }
   }
 </script>

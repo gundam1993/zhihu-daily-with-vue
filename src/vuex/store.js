@@ -7,6 +7,7 @@ Vue.use(VueResource);
 
 const state = {
   mainPageHeight: 0,
+  readyState: false,
   loadedDate: "",
   loadingStr: "",
   todayStories: [],
@@ -48,7 +49,10 @@ const mutations = {
   },
   SET_EDITORS(state, editors) {
     state.editors = editors;
-  }
+  },
+  READY_STATE_CHANGE(state) {
+    state.readyState = !state.readyState;
+  },
 };
 
 export default new Vuex.Store({

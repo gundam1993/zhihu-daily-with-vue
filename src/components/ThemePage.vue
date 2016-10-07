@@ -20,7 +20,7 @@
 <script>
   import Sidebar from "./Sidebar";
   import DailyStory from "./DailyStory";
-  import { setEditors } from "../vuex/actions";
+  import { setEditors, readyStateChange } from "../vuex/actions";
 
   export default {
     data() {
@@ -32,6 +32,7 @@
     vuex: {
       actions: {
         setEditors,
+        readyStateChange,
       }
     },
     components: {
@@ -78,6 +79,7 @@
     },
     route: {
       data: function (transition) {
+        this.readyStateChange();
         this.clearStyle();
         if (this.id === this.$route.params.themeId) {
           return;
@@ -94,6 +96,7 @@
           }
         });
         window.addEventListener("scroll", this.loadOld);
+        this.readyStateChange();
         transition.next()
       },
     },

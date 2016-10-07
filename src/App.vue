@@ -9,8 +9,8 @@
 
 <script>
   import store from './vuex/store';
-  import { initStore } from './vuex/actions';
-  import { getScrollHeight } from './vuex/getters';
+  import { initStore, readyStateChange } from './vuex/actions';
+  import { getScrollHeight, getReadyState } from './vuex/getters';
   import LoadingPage from './components/LoadingPage';
 
   export default {
@@ -18,24 +18,21 @@
     vuex: {
       actions: {
         initStore,
+        readyStateChange,
       },
       getters: {
         getScrollHeight,
+        readyState: getReadyState,
       }
     },
     components: {
       LoadingPage,
     },
-    data() {
-      return {
-        readyState: false,
-      }
-    },
     methods: {
       getStory() {
         this.$http.get("/api/4/news/latest").then(function (response) {
           this.initStore(response);
-          this.readyState = true;
+          this.readyStateChange();
         })
       }
     },
