@@ -7,10 +7,10 @@
     </div>
     <div class="sidebar-mask" 
          :class="{'sidebar-block-hide': hide}"
-         @click="showSidebar()"></div>
+         @click="toggleSidebar()"></div>
     <div class="sidebar-block" :class="{'sidebar-block-hide': hide}">
       <div class="sidebar-homepage">
-        <div class="sidebar-about" @click="toggleSidebar()">
+        <div class="sidebar-about" @click="toggleSidebar()" v-link="'/about'"> 
           <img src="http://tva2.sinaimg.cn/crop.518.65.901.901.180/b2f93831jw8evp8z6co3vj21gx0ts4c2.jpg">
           <span>gundam1993</span>
         </div>

@@ -165,6 +165,7 @@
 
   .page-controller-mask-hide {
     opacity: 0;
+    transform: translateY(100%);
     transition: all 0.3s ease;
   }
   

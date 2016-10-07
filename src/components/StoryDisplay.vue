@@ -14,9 +14,6 @@
             <img :src="recommender.avatar">       
           </div>
         </div>
-        <div v-if="!content.image" class="title-container-without-pic">
-          <h3>{{ content.title }}</h3>
-        </div>
         {{{ content.body }}}
       </div>
       <div class="story-section" v-if="content.section">
@@ -98,13 +95,17 @@
         });
       })
       this.setWatchId();
+      if (this.content.type === 0) {
+        var headline = document.getElementsByClassname('headline');
+        headline[0].style.display = "none";
+      }
     },
   }
 </script>
 
 <style type="text/css">
   .headline {
-    display: none;
+    float: left;
   }
 </style>
 

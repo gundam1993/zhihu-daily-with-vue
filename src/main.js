@@ -5,6 +5,7 @@ import MainPage from "./components/MainPage.vue";
 import StoryDisplay from "./components/StoryDisplay.vue";
 import CommentPage from "./components/CommentPage.vue";
 import ThemePage from "./components/ThemePage.vue";
+import AboutPage from "./components/AboutPage.vue";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,9 @@ router.map({
   "/theme/:themeId": {
     name: 'theme',
     component: ThemePage,
+  },
+  "/about": {
+    component: AboutPage,
   }
 });
 
