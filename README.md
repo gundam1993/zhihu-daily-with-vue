@@ -24,8 +24,10 @@
 ```js
 "dependencies": {
     "vue": "^1.0.21",
-    "vue-resource": "^0.7.0",
-    "vue-router": "^0.7.13"
+    "babel-runtime": "^6.0.0",
+    "vue-router": "^0.7.13",
+    "vue-resource": "^1.0.1",
+    "vuex": "^1.0.0-rc.2"
   }
 ```
 
@@ -50,4 +52,4 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 MIT license.
 
 感谢 [ZhihuDailyPurify](https://github.com/izzyleung/ZhihuDailyPurify/wiki/%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5-API-%E5%88%86%E6%9E%90)整理了API
-感谢[Troy](http://tangrui.win/2016/01/09/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%BD%BB%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5/)提供了图片外链的解决方案
+，感谢[Troy](http://tangrui.win/2016/01/09/%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E8%BD%BB%E7%9F%A5%E4%B9%8E%E6%97%A5%E6%8A%A5/)提供了图片外链的解决方案
