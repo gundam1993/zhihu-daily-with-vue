@@ -1,6 +1,8 @@
 <template>
   <div class="main">
-    <loading-page v-if="!readyState" transition="loading-change"></loading-page>
+    <transition name="loading-change">
+      <loading-page v-if="!readyState"></loading-page>
+    </transition>
     <router-view v-if="readyState"
                  transition="page-change"
                  transition-mode="out-in"></router-view>

@@ -23,9 +23,9 @@
 
 ```js
 "dependencies": {
-    "vue": "^1.0.21",
+    "vue": "^2.0.0",
     "babel-runtime": "^6.0.0",
-    "vue-router": "^0.7.13",
+    "vue-router": "^2.0.0",
     "vue-resource": "^1.0.1",
     "vuex": "^1.0.0-rc.2"
   }

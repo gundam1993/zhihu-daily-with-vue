@@ -1,0 +1,218 @@
+
+tianyaodeMacBook-Air:zhihu-daily-with-vue tianyao$ vue-migration-helper
+
+4. Replace transition="loading-change" attribute with either a <transition name="loading-change"> or <transition-group name="loading-change"> wrapper component
+  Line 3: src/App.vue
+  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
+  More info: http://vuejs.org/guide/migration.html#transition-Attribute-deprecated
+
+5. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 39: src/App.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+
+6. Replace .page-change-transition with .page-change-enter-active, .page-change-leave-active
+  Line 95: src/App.vue
+  Reason: v-transition class has been deprecated to standardize on the same classes as Angular and React CSSTransitionGroup
+  More info: http://vuejs.org/guide/migration.html#transition-Attribute-deprecated
+
+7. Replace .page-change-leave with .page-change-leave-active (if it's left over from Vue 1.x)
+  Line 102: src/App.vue
+  Reason: v-leave class now defines a starting state for leave transitions, rather than the ending state
+  More info: http://vuejs.org/guide/migration.html#Transitions
+
+8. Replace .loading-change-transition with .loading-change-enter-active, .loading-change-leave-active
+  Line 107: src/App.vue
+  Reason: v-transition class has been deprecated to standardize on the same classes as Angular and React CSSTransitionGroup
+  More info: http://vuejs.org/guide/migration.html#transition-Attribute-deprecated
+
+9. Replace .loading-change-leave with .loading-change-leave-active (if it's left over from Vue 1.x)
+  Line 114: src/App.vue
+  Reason: v-leave class now defines a starting state for leave transitions, rather than the ending state
+  More info: http://vuejs.org/guide/migration.html#Transitions
+
+12. Replace v-link="'/index'" with the new <router-link> component (see link below for details)
+  Line 16: src/components/AboutPage.vue
+  Reason: The v-link directive has been replaced with the new <router-link> component
+  More info: http://vuejs.org/guide/migration-vue-router.html#v-link-deprecated
+
+13. Replace transition="comment-change" attribute with either a <transition name="comment-change"> or <transition-group name="comment-change"> wrapper component
+  Line 10: src/components/CommentPage.vue
+  Reason: The new and improved transition system requires use of new <transition> and <transition-group> components
+  More info: http://vuejs.org/guide/migration.html#transition-Attribute-deprecated
+
+14. Replace {{{ comment.time }}} with v-html="comment.time" on a containing element
+  Line 33: src/components/CommentPage.vue
+  Reason: HTML interpolation with {{{ }}} has been deprecated
+  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation-deprecated
+
+15. Update v-el:comment-controller to ref="commentController"
+  Line 39: src/components/CommentPage.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+16. Update this.$els.commentController to this.$refs.commentController
+  Line 102: src/components/CommentPage.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+17. Update this.$els.commentController to this.$refs.commentController
+  Line 104: src/components/CommentPage.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+18. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 110: src/components/CommentPage.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+
+19. Replace .comment-change-transition with .comment-change-enter-active, .comment-change-leave-active
+  Line 278: src/components/CommentPage.vue
+  Reason: v-transition class has been deprecated to standardize on the same classes as Angular and React CSSTransitionGroup
+  More info: http://vuejs.org/guide/migration.html#transition-Attribute-deprecated
+
+20. Replace .comment-change-leave with .comment-change-leave-active (if it's left over from Vue 1.x)
+  Line 285: src/components/CommentPage.vue
+  Reason: v-leave class now defines a starting state for leave transitions, rather than the ending state
+  More info: http://vuejs.org/guide/migration.html#Transitions
+
+21. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 36: src/components/EditorsPage.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+
+22. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 120: src/components/MainPage.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+
+23. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 59: src/components/SectionPage.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+
+24. Replace v-link="'/about'" with the new <router-link> component (see link below for details)
+  Line 13: src/components/Sidebar.vue
+  Reason: The v-link directive has been replaced with the new <router-link> component
+  More info: http://vuejs.org/guide/migration-vue-router.html#v-link-deprecated
+
+25. Replace v-link="'/index'" with the new <router-link> component (see link below for details)
+  Line 17: src/components/Sidebar.vue
+  Reason: The v-link directive has been replaced with the new <router-link> component
+  More info: http://vuejs.org/guide/migration-vue-router.html#v-link-deprecated
+
+26. Replace v-link="{name: 'theme', params: { themeId: topic.id }}" with the new <router-link> component (see link below for details)
+  Line 24: src/components/Sidebar.vue
+  Reason: The v-link directive has been replaced with the new <router-link> component
+  More info: http://vuejs.org/guide/migration-vue-router.html#v-link-deprecated
+
+27. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 54: src/components/Sidebar.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+
+28. Update v-el:slide-container to ref="slideContainer"
+  Line 3: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+29. Update v-el:slide-point to ref="slidePoint"
+  Line 16: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+30. Update this.$els.slidePoint to this.$refs.slidePoint
+  Line 77: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+31. Update this.$els.slideContainer to this.$refs.slideContainer
+  Line 82: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+32. Update this.$els.slidePoint to this.$refs.slidePoint
+  Line 83: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+33. Update this.$els.slideContainer to this.$refs.slideContainer
+  Line 87: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+34. Update this.$els.slidePoint to this.$refs.slidePoint
+  Line 88: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+35. Update this.$els.slideContainer to this.$refs.slideContainer
+  Line 92: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+36. Update this.$els.slidePoint to this.$refs.slidePoint
+  Line 93: src/components/Slide.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+37. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 101: src/components/Slide.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+
+38. Update v-el:controller-btn to ref="controllerBtn"
+  Line 5: src/components/PageController.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+39. Update this.$els.controllerBtn to this.$refs.controllerBtn
+  Line 65: src/components/PageController.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+40. Update this.$els.controllerBtn to this.$refs.controllerBtn
+  Line 67: src/components/PageController.vue
+  Reason: v-el and v-ref merged into ref attribute
+  More info: http://vuejs.org/guide/migration.html#v-el-and-v-ref-deprecated
+
+41. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 73: src/components/PageController.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+
+42. Replace v-link="'/editors'" with the new <router-link> component (see link below for details)
+  Line 9: src/components/ThemePage.vue
+  Reason: The v-link directive has been replaced with the new <router-link> component
+  More info: http://vuejs.org/guide/migration-vue-router.html#v-link-deprecated
+
+43. Replace router.map with an array on the new routes option (see link below for details)
+  Line 16: src/main.js
+  Reason: Routes are now defined as an array on a routes option at router instantiation
+  More info: http://vuejs.org/guide/migration-vue-router.html#router-map-deprecated
+
+44. Replace router.redirect with a redirect option in a route definition (see link below for details)
+  Line 42: src/main.js
+  Reason: Redirects have been moved to an option on route definitions to improve config organization
+  More info: http://vuejs.org/guide/migration-vue-router.html#router-redirect-deprecated
+
+45. Replace router.start with router: router on your root Vue instance (see link below for details)
+  Line 46: src/main.js
+  Reason: Starting an app with routing no longer requires a special method - the router can simply be passed to the root Vue instance as option
+  More info: http://vuejs.org/guide/migration-vue-router.html#router-start-deprecated
+
+46. Replace {{{ content.body }}} with v-html="content.body" on a containing element
+  Line 17: src/components/StoryDisplay.vue
+  Reason: HTML interpolation with {{{ }}} has been deprecated
+  More info: http://vuejs.org/guide/migration.html#HTML-Interpolation-deprecated
+
+47. Replace v-link="{name: 'section', params: { sectionId: content.section.id }}" with the new <router-link> component (see link below for details)
+  Line 19: src/components/StoryDisplay.vue
+  Reason: The v-link directive has been replaced with the new <router-link> component
+  More info: http://vuejs.org/guide/migration-vue-router.html#v-link-deprecated
+
+48. Replace ready with mounted, then use Vue.nextTick if you need an in-document guarantee
+  Line 79: src/components/StoryDisplay.vue
+  Reason: ready lifecycle hook has been deprecated
+  More info: http://vuejs.org/guide/migration.html#ready-deprecated
+tianyaodeMacBook-Air:zhihu-daily-with-vue tianyao$ 
