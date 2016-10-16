@@ -14,13 +14,16 @@
             <img :src="recommender.avatar">       
           </div>
         </div>
-        {{{ content.body }}}
+        <div v-html="content.body"></div>
       </div>
-      <div class="story-section" v-if="content.section" v-link="{name: 'section', params: { sectionId: content.section.id }}">
-        <img :src="content.section.thumbnail">
-        本文来自：{{content.section.name}}·合集
-        <i class="iconfont icon-iconfontjiantou1"></i>
+      <div class="story-section" v-if="content.section">
+        <router-link :to="{name: 'section', params: { sectionId: content.section.id }}">
+          <img :src="content.section.thumbnail">
+          本文来自：{{content.section.name}}·合集
+          <i class="iconfont icon-iconfontjiantou1"></i>
+        </router-link>
       </div>
+
     </div>
     <page-controller :content="extra"></page-controller>
   </div>
@@ -76,7 +79,7 @@
       }
     },
     
-    ready() {
+    mounted() {
       this.readyStateChange();
       const source = '/api/4/news/' + this.$route.params.storyId,
             extraSource = '/api/4/story-extra/' + this.$route.params.storyId;
@@ -185,6 +188,10 @@
     font-size: 0.7rem;
     line-height: 3rem;
     position: relative;
+    
+    a {
+      color: #000;
+    }
 
     img {
       height: 100%;

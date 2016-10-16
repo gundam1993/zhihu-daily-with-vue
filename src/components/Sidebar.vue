@@ -10,21 +10,28 @@
          @click="toggleSidebar()"></div>
     <div class="sidebar-block" :class="{'sidebar-block-hide': hide}">
       <div class="sidebar-homepage">
-        <div class="sidebar-about" @click="toggleSidebar()" v-link="'/about'"> 
-          <img src="http://tva2.sinaimg.cn/crop.518.65.901.901.180/b2f93831jw8evp8z6co3vj21gx0ts4c2.jpg">
-          <span>gundam1993</span>
-        </div>
-        <div @click="toggleSidebar()" v-link="'/index'">
+        <router-link to="/about">
+          <div class="sidebar-about" @click="toggleSidebar()"> 
+            <img src="http://tva2.sinaimg.cn/crop.518.65.901.901.180/b2f93831jw8evp8z6co3vj21gx0ts4c2.jpg">
+            <span>gundam1993</span>
+          </div>
+        </router-link>
+        <router-link to="/index">
+          <div @click="toggleSidebar()" class="sidebar-index">
             <i class="iconfont icon-home"></i>
             <span>首页</span>
-        </div>
+          </div>
+        </router-link>
       </div>
       <div v-for="topic in topics" 
            class="sidebar-topics"
-           v-link="{name: 'theme', params: { themeId: topic.id }}" 
            @click="toggleSidebar()">
-          {{ topic.name }}
-          <i class="iconfont icon-jiahao"></i>
+          <router-link :to="{name: 'theme', params: { themeId: topic.id }}">
+            <div>
+              {{ topic.name }}
+              <i class="iconfont icon-jiahao"></i>
+            </div>
+          </router-link>
       </div>
     </div>
   </div>
@@ -51,7 +58,7 @@
         this.hide = !this.hide;
       },
     },
-    ready() {
+    mounted() {
       this.$http.get("/api/4/themes").then(function (response) {
         this.topics = response.body.others;
       });
@@ -145,6 +152,10 @@
         border: none;
         font-size: 0.8rem;
 
+        a {
+          color: #000;
+        }
+
         i {
           position: absolute;
           right: 1rem;
@@ -158,5 +169,13 @@
     transform: translateX(-100%);
     opacity: 0;
     transition: all 0.3s ease-in-out;
+  }
+
+  .sidebar-index {
+    color: #FFF;
+  }
+
+  a {
+    text-decoration: none;
   }
 </style>

@@ -117,7 +117,7 @@
       },
     },
     
-    ready() {
+    mounted: function() {
       this.topStories = this.getTopStories;
       this.todayStories = this.getTodayStories;
       this.oldStories = this.getOldStories;

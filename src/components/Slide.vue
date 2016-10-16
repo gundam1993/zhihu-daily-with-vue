@@ -1,6 +1,6 @@
 <template>
   <div id="slide">
-    <div id="slide-container" v-el:slide-container>
+    <div id="slide-container" ref="slideContainer">
       <div v-for="data in content" 
            class="slide-box" 
            @touchstart="setTouchX()" 
@@ -13,7 +13,7 @@
     </div>
     <div class="slide-pointers">
       <div v-for="data in content" class="slide-ponit"></div>
-      <div id="slide-ponit-display" v-el:slide-point></div>
+      <div id="slide-ponit-display" ref="slidePoint"></div>
     </div>
   </div>
 </template>
@@ -74,32 +74,34 @@
         this.left = this.index * document.body.offsetWidth;
         var target = event.target.parentNode.parentNode;
         target.style.transform = "translateX(-" + this.left + "px)";
-        this.$els.slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
+        this.$refs.slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
       },
       slideMove() {
         this.index === 4 ? this.index = 0 : this.index ++;
         this.left = this.index * document.body.offsetWidth;
-        this.$els.slideContainer.style.transform = "translateX(-" + this.left + "px)";
-        this.$els.slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
+        this.$refs.slideContainer.style.transform = "translateX(-" + this.left + "px)";
+        this.$refs.slidePoint.style.transform = "translateX(" + this.index * 0.6 + "rem)";
       },
       startLoop() {
         this.loop = setInterval(this.slideMove, 6300);
-        this.$els.slideContainer.className = "transition";
-        this.$els.slidePoint.className = "transition";
+        this.$refs.slideContainer.className = "transition";
+        this.$refs.slidePoint.className = "transition";
       },
       endLoop() {
         window.clearInterval(this.loop);
-        this.$els.slideContainer.className = "";
-        this.$els.slidePoint.className = "";
+        this.$refs.slideContainer.className = "";
+        this.$refs.slidePoint.className = "";
       },
       tap(id) {
         this.setNowWatching(id);
         this.endLoop();
-        this.$route.router.go('/story/' + id);
+        this.$router.push('/story/' + id);
       }
     },
-    ready() {
-      this.startLoop();
+    mounted: function() {
+      this.$nextTick(function () {
+        this.startLoop();
+      })
     },
     beforeDestroy() {
       this.endLoop();

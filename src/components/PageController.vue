@@ -2,7 +2,7 @@
   <div id="page-controller">
     <div id="page-controller-btn-big"
          :class="{'page-controller-rotate': !hide, 'page-controller-hide': controllerHide}"
-         v-el:controller-btn
+         ref="controllerBtn"
          @click="toggleMenu">
       <i class="iconfont icon-jiahao"></i>
     </div>
@@ -59,18 +59,18 @@
         this.agreed = !this.agreed;
       },
       showComment() {
-        this.$route.router.go(this.$route.path.replace(/story/, "comment"));
+        this.$router.push(this.$route.path.replace(/story/, "comment"));
       },
       toggleBtn() {
-        if (window.scrollY >= this.scrollY && this.$els.controllerBtn.className === "") {
+        if (window.scrollY >= this.scrollY && this.$refs.controllerBtn.className === "") {
           this.controllerHide = true;
-        }else if (window.scrollY < this.scrollY && this.$els.controllerBtn.className === "page-controller-hide") {
+        }else if (window.scrollY < this.scrollY && this.$refs.controllerBtn.className === "page-controller-hide") {
           this.controllerHide = false;
         };
         this.scrollY = window.scrollY;
       }
     },
-    ready() {
+    mounted: function() {
       window.onscroll = this.toggleBtn.bind(this);
     },
     beforeDestroy() {

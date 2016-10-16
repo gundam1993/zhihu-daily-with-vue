@@ -6,13 +6,15 @@
         <h3>{{ content.description }}</h3>
         <span v-if="content.image_source">{{ content.image_source }}</span>
     </div>
-    <div class="theme-editors" v-if="content.editors" v-link="'/editors'">
-      <span>主编</span>
-      <div class="theme-editors-avatar"
-           v-for="editor in content.editors">
-        <img :src="editor.avatar">       
+    <router-link to="/editors">
+      <div class="theme-editors" v-if="content.editors">
+        <span>主编</span>
+        <div class="theme-editors-avatar"
+             v-for="editor in content.editors">
+          <img :src="editor.avatar">       
+        </div>
       </div>
-    </div>
+    </router-link>
     <daily-story :stories="content.stories" :title="''"></daily-story>
   </div>
 </template>
@@ -76,29 +78,32 @@
           })
         }
       },
-    },
-    route: {
-      data: function (transition) {
+      initPage() {
         this.readyStateChange();
-        this.clearStyle();
-        if (this.id === this.$route.params.themeId) {
-          return;
+      this.clearStyle();
+      if (this.id === this.$route.params.themeId) {
+        return;
+      }
+      this.id = this.$route.params.themeId;
+      const source = "/api/4/theme/" + this.id;
+      this.$http.get(source).then(function (response) {
+        this.content = response.body;
+        this.imageUrlFix();
+        if (this.content.editors) {
+          this.setEditors(this.content.editors);
+          const newdata = JSON.stringify(this.content.editors);
+          sessionStorage.setItem("editors", newdata);
         }
-        this.id = this.$route.params.themeId;
-        const source = "/api/4/theme/" + this.id;
-        this.$http.get(source).then(function (response) {
-          this.content = response.body;
-          this.imageUrlFix();
-          if (this.content.editors) {
-            this.setEditors(this.content.editors);
-            const newdata = JSON.stringify(this.content.editors);
-            sessionStorage.setItem("editors", newdata);
-          }
-        });
-        window.addEventListener("scroll", this.loadOld);
-        this.readyStateChange();
-        transition.next()
-      },
+      });
+      window.addEventListener("scroll", this.loadOld);
+      this.readyStateChange();
+      }
+    },
+    watch: {
+      '$route': 'initPage'
+    },
+    created() {
+      this.initPage();
     },
   }
 </script>
@@ -148,6 +153,7 @@
     background-color: #f0f0f0;
     line-height: 3rem;
     padding-top: 0.7rem;
+    color: #000;
 
      span {
         float: left;

@@ -13,8 +13,8 @@
         <li>给一个star好吗</li>
         <li>(❤ ω ❤)</li>
       </ul>
-      <div class="return" v-link="'/index'">
-        返回
+      <div class="return">
+        <router-link to='/index'>返回</router-link>
       </div>
     </div>
   </div>

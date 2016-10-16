@@ -11,36 +11,21 @@ import EditorsPage from "./components/EditorsPage.vue"
 
 Vue.use(VueRouter);
 
-const router = new VueRouter();
-
-router.map({
-  '/index': {
-    component: MainPage,
-  },
-  "/story/:storyId": {
-    component: StoryDisplay,
-  },
-  "/comment/:storyId": {
-    component: CommentPage,
-  },
-  "/theme/:themeId": {
-    name: 'theme',
-    component: ThemePage,
-  },
-  "/about": {
-    component: AboutPage,
-  },
-  "/section/:sectionId": {
-    name: 'section',
-    component: SectionPage,
-  },
-  "/editors": {
-    component: EditorsPage,
-  }
+const router = new VueRouter({
+  routes: [
+    { path: '/index', component: MainPage },
+    { path: '/story/:storyId', name: 'story', component: StoryDisplay },
+    { path: '/comment/:commentId', name: 'comment', component: CommentPage },
+    { path: '/theme/:themeId', name: 'theme', component: ThemePage },
+    { path: '/section/:sectionId', name: 'section', component: SectionPage },
+    { path: '/about', component: AboutPage },
+    { path: '/editors', component: EditorsPage },
+    { path: '*', redirect: '/index'}
+  ]
 });
 
-router.redirect({
-  '*': 'index',
+export default new Vue({
+  el: '#app',
+  router: router,
+  render: h => h(App),
 });
-
-router.start(App, '#app');

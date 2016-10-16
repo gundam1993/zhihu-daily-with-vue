@@ -7,8 +7,8 @@
             深度评论虚位以待
           </div>
         </div>
-      <div class="comment-content-block" v-for="comment in display" transition="comment-change">
-        
+      <transition-group name="comment-change">
+      <div class="comment-content-block" v-for="comment in display" :key="comment.id">
         <div class="comment-author-block">
           <div class="comment-author-avatar">
             <img :src="comment.avatar" >
@@ -26,17 +26,15 @@
             {{ comment.reply_to.author }}
             </span>
             :
-            {{ comment.reply_to.content }}</p>
-            
+            {{ comment.reply_to.content }}</p>   
         </div>
-        <div class="comment-time">
-          {{{ comment.time }}}
-        </div>
+        <div class="comment-time" v-html="comment.time"></div>
       </div>
     </div>
+    </transition-group>
     <div id="comment-controller"
          :class="{'comment-controller-hide': ControllerHide}"
-         v-el:comment-controller>
+         ref='commentController'>
       <div class="comment-length">
         <span v-if="display === longComments">{{ longComments.length }}条长评</span>
         <span v-if="display === shortComments">{{ shortComments.length }}条短评</span>
@@ -81,7 +79,7 @@
         }
       },
       setWatchId() {
-        var id = this.$route.params.storyId;
+        var id = this.$route.params.commentId;
         this.setNowWatching(id);
       },
       fixImageUrl(comments) {
@@ -99,15 +97,15 @@
         this.display === this.longComments ? this.display = this.shortComments : this.display = this.longComments;
       },
       toggleController() {
-        if (window.scrollY >= this.scrollY && this.$els.commentController.className === "") {
+        if (window.scrollY >= this.scrollY && this.$refs.commentController.className === "") {
           this.ControllerHide = true;
-        }else if (window.scrollY < this.scrollY && this.$els.commentController.className === "comment-controller-hide") {
+        }else if (window.scrollY < this.scrollY && this.$refs.commentController.className === "comment-controller-hide") {
           this.ControllerHide = false;
         };
         this.scrollY = window.scrollY;
       }
     },
-    ready() {
+    mounted: function() {
       this.readyStateChange();
       this.clearStyle();
       this.setWatchId();
@@ -275,14 +273,14 @@
     transition: all 0.5s ease;
   }
 
-  .comment-change-transition {
-    transition: all .6s ease-in-out;
+  .comment-change-enter-active,.comment-change-leave-active {
+    transition: all .3s ease-in-out;
   }
   
-  .comment-change-enter {
+  .comment-change-enter-active {
     opacity: 0;
   }
-  .comment-change-leave {
+  .comment-change-leave-active {
     opacity: 0;
   }
 </style>

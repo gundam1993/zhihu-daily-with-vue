@@ -56,7 +56,7 @@
         }
       },
     },
-    ready() {
+    mounted: function() {
       const source = "/api/3/section/" + this.$route.params.sectionId;
       this.$http.get(source).then(function (response) {
         this.content = response.body;

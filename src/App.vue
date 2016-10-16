@@ -3,9 +3,9 @@
     <transition name="loading-change">
       <loading-page v-if="!readyState"></loading-page>
     </transition>
-    <router-view v-if="readyState"
-                 transition="page-change"
-                 transition-mode="out-in"></router-view>
+    <transition name="page-change" mode="out-in">
+      <router-view v-if="readyState"></router-view>
+    </transition>
   </div>
 </template>
 
@@ -38,7 +38,7 @@
         })
       }
     },
-    ready() {
+    mounted: function () {
       this.getStory();
     }
   }
@@ -94,26 +94,26 @@ body {
 .icon-infooutline:before { content: "\e60a"; }
 .icon-menu:before { content: "\e60b"; }
 
-.page-change-transition {
+.page-change-enter-active, .page-change-leave-active {
     transition: all .4s ease-in-out;
   }
   
-  .page-change-enter {
+  .page-change-enter-active {
     opacity: 0;
   }
-  .page-change-leave {
+  .page-change-leave-active {
     transform: translate(-100%,0);
     opacity: 0;
   } 
 
-  .loading-change-transition {
+  .loading-change-enter-active, .loading-change-leave-active {
     transition: all .6s ease-in-out;
   }
   
-  .loading-change-enter {
+  .loading-change-enter-active {
     opacity: 0;
   }
-  .loading-change-leave {
+  .loading-change-leave-active {
     opacity: 0;
   }
 

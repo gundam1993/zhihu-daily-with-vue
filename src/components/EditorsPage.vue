@@ -33,8 +33,7 @@
         getEditors,
       }
     },
-    ready() {
-      console.log(this.getEditors)
+    mounted: function() {
       if (this.getEditors.length) {
         this.editors = this.getEditors;
       }else{

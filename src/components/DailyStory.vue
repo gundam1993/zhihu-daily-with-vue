@@ -62,7 +62,7 @@
       },
       tap(id) {
         this.setNowWatching(id);
-        this.$route.router.go('/story/' + id);
+        this.$router.push('/story/' + id);
         this.setScrollHeight(window.scrollY);
       }
     }
